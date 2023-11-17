@@ -7,7 +7,7 @@ public class Stikky_Platform : MonoBehaviour
     
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Palyer")
+        if (collision.gameObject.name == "Player_Andy")
         {
             collision.gameObject.transform.SetParent(transform);
         }
@@ -15,7 +15,7 @@ public class Stikky_Platform : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Palyer")
+        if (collision.gameObject.name == "Player_Andy")
         {
             collision.gameObject.transform.SetParent(null);
         }
@@ -23,7 +23,7 @@ public class Stikky_Platform : MonoBehaviour
     /**
     private void OnTriggerEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Palyer")
+        if (collision.gameObject.name == "Player_Andy")
         {
             collision.gameObject.transform.SetParent(transform);
         }
@@ -31,7 +31,7 @@ public class Stikky_Platform : MonoBehaviour
 
     private void OnTriggerExit2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Palyer")
+        if (collision.gameObject.name == "Player_Andy")
         {
             collision.gameObject.transform.SetParent(null);
         }
