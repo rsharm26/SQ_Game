@@ -20,7 +20,7 @@ public class Displayer : MonoBehaviour
         timeText.text = $"{tabulator.RemainingTime.Minutes:D2}:{tabulator.RemainingTime.Seconds:D2}";
         collectText.text = $"{tabulator.Collect}"; 
 
-        if(tabulator.Collect == 12)
+        if(tabulator.Collect == tabulator.UnlockThreshold)
         {
             collectText.color = new Color32(255, 255, 15, 255);
         }

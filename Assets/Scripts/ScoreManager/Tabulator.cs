@@ -38,6 +38,7 @@ public class Tabulator : MonoBehaviour
     private GameObject portalBlock; 
     [SerializeField]
     private int unlockThreshold = 12; 
+    public int UnlockThreshold { get => unlockThreshold; }
     private bool blockDestroyed; 
 
     public int Collect {get; set;}      // property to track # of collectables
