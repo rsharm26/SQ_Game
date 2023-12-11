@@ -11,6 +11,8 @@ using UnityEngine;
    */
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    private Tabulator tabulator; 
     public Rigidbody2D playerBody;                                          // Gives physics to our player's character
 
     public BoxCollider2D collision;                                         // Allows for the detection of collision with the player    
@@ -37,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
     public enum MovementState { idle, running, jumping, falling }           // Enum used to determine the correct state of the movement animation
 
+    private Vector2 playerOrigin;               // record player starting position 
+
     /*
     *	METHOD          : Start()
     *	DESCRIPTION		:
@@ -54,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         collision = GetComponent<BoxCollider2D>();
+        playerOrigin = playerBody.position;             //record player's starting position 
     }
 
     /*
@@ -207,5 +212,34 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded()
     {
         return Physics2D.BoxCast(collision.bounds.center, collision.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    }
+
+
+    // when running into objects
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        // if it's into enemy, reduce available lives 
+        if (other.gameObject.tag == "Enemy")
+        {                
+            tabulator.Lives -= 1;           // update remaning lives in tabulator 
+            Debug.Log("tabulator.lives: " + tabulator.Lives);
+            playerBody.position = playerOrigin;  // reset player back to starting position 
+        }
+
+
+        // if arrived at portal, win. 
+        if (other.gameObject.tag == "Portal")
+        {
+            tabulator.Win = true; 
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Collectable")
+        {
+            tabulator.Collect++; 
+            other.gameObject.SetActive(false);  // deactivate the collectable 
+        }
     }
 }
