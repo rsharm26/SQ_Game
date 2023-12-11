@@ -82,6 +82,15 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
+        } 
+        else if (Input.GetButtonDown("Cancel")) 
+        {
+            UIType? currentlyActive = UIManager.GetInstance().CurrentlyActive;
+
+            if (currentlyActive == UIType.PauseMenu || currentlyActive == null) 
+            {
+                UIManager.GetInstance().ToggleUIElement(UIType.PauseMenu);
+            }
         }
 
         UpdateAnimationState();

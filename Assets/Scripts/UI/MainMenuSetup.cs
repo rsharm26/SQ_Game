@@ -64,9 +64,9 @@ public class MainMenuSetup : MonoBehaviour {
 
         // Bind events to each button the main menu.
         UIContainer uiContainer = UIManager.GetInstance();
-        playBtn.clickable.clicked += () => uiContainer.InvokeUIElement(UIType.LevelSelection);
-        leaderBtn.clickable.clicked += () => uiContainer.InvokeUIElement(UIType.Leaderboard);
-        settingsBtn.clickable.clicked += () => uiContainer.InvokeUIElement(UIType.Settings);
+        playBtn.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.LevelSelection);
+        leaderBtn.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.Leaderboard);
+        settingsBtn.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.Settings);
         quitBtn.clickable.clicked += QuitButtonPressed;
 
         // PENDING REMOVAL.

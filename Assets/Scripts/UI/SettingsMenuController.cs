@@ -34,7 +34,7 @@ public class SettingsMenuController : MonoBehaviour {
     }
 
     private void CancelButtonPressed() {
-        this.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+        UIManager.GetInstance().ToggleUIElement(UIType.Settings);
     }
 
     private void ApplyButtonPressed() {

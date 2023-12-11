@@ -30,7 +30,7 @@ public class LeaderboardManager : MonoBehaviour {
     }
 
     private void ExitButtonPressed() {
-        this.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+        UIManager.GetInstance().ToggleUIElement(UIType.Leaderboard);
     }
 
     private void InitLevelSelectDropdown() {
