@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_src/UI/StyleSheets/WinPopupStyling.uss?fileID=7433441132597879392&amp;guid=9d2efeeecac294e48b04b16478fd3b2e&amp;type=3#WinPopupStyling" />
+    <ui:VisualElement name="container">
+        <ui:VisualElement name="background" />
+        <ui:VisualElement name="options-box">
+            <ui:VisualElement name="header" class="grouped-row">
+                <ui:Label text="You win!" display-tooltip-when-elided="true" name="title" class="heading-text" />
+                <ui:VisualElement name="pink-dude" />
+            </ui:VisualElement>
+            <ui:VisualElement name="overview-bar" class="grouped-row" style="align-items: flex-end;">
+                <ui:VisualElement name="overall-score-cell" class="overview-cell">
+                    <ui:VisualElement name="star-image" class="overview-image" />
+                    <ui:Label text="You scored: &lt;u&gt;100&lt;/u&gt;" display-tooltip-when-elided="true" name="score-text" class="overview-text" style="-unity-text-align: lower-center;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="lives-score-cell" class="overview-sub-cell">
+                    <ui:VisualElement name="pink-dude-head" class="overview-image" />
+                    <ui:Label text="&lt;u&gt;25&lt;/u&gt;" display-tooltip-when-elided="true" name="score-text" class="overview-text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="lives-score-cell" class="overview-sub-cell">
+                    <ui:VisualElement name="collectibles-image" class="overview-image" />
+                    <ui:Label text="&lt;u&gt;25&lt;/u&gt;" display-tooltip-when-elided="true" name="score-text" class="overview-text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="lives-score-cell" class="overview-sub-cell">
+                    <ui:VisualElement name="time-image" class="overview-image" />
+                    <ui:Label text="&lt;u&gt;25&lt;/u&gt;" display-tooltip-when-elided="true" name="score-text" class="overview-text" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:GroupBox name="control-box">
+                <ui:Button text="Levels" display-tooltip-when-elided="true" name="level-selector-btn" class="green-btn" />
+                <ui:Button text="Leaderboard" display-tooltip-when-elided="true" name="leader-btn" class="green-btn" />
+                <ui:Button text="Menu" display-tooltip-when-elided="true" name="menu-btn" class="red-btn" />
+            </ui:GroupBox>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

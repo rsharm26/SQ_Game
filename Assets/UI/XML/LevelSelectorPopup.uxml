@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheets/LevelSelectorStyling.uss?fileID=7433441132597879392&amp;guid=59dcff3b11f69cf48a5fcf282ceab609&amp;type=3#LevelSelectorStyling" />
+    <ui:VisualElement name="container">
+        <ui:VisualElement name="background" />
+        <ui:VisualElement name="options-box">
+            <ui:Label text="Select a level:" display-tooltip-when-elided="true" name="title" />
+            <ui:GroupBox name="level-box" style="margin-top: 10%;">
+                <ui:Button text="1" display-tooltip-when-elided="true" name="level1-btn" class="temp-unlocked level-btn" />
+                <ui:Button text="2" display-tooltip-when-elided="true" name="level2-btn" class="temp-unlocked level-btn" />
+                <ui:Button text="3" display-tooltip-when-elided="true" name="level3-btn" class="temp-unlocked level-btn" />
+                <ui:Button display-tooltip-when-elided="true" name="level4-btn" text="4" class="temp-unlocked level-btn" />
+                <ui:Button display-tooltip-when-elided="true" name="level5-btn" class="temp-locked level-btn" />
+            </ui:GroupBox>
+        </ui:VisualElement>
+        <ui:VisualElement name="control-box">
+            <ui:Button text="Exit" display-tooltip-when-elided="true" name="exit-btn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

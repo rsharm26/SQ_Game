@@ -1,0 +1,103 @@
+:root {
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 1);
+}
+
+#container > VisualElement {
+    justify-content: center;
+    align-items: center;
+    border-width: 0px;
+    border-color: white;
+}
+
+#title {
+    font-size: 64px;
+    -unity-font-style: bold;
+    color: white;
+    margin-top: 10px;
+    -unity-font-definition: url('project:/Assets/Font/Electronic Highway Sign.TTF');
+}
+
+#options-box {
+    flex-direction: column;
+    width: 75%;
+    height: 75%;
+    margin-top: 1.5%;
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/SettingsWindow.png');
+}
+
+#level-box {
+    flex-direction: row;
+    width: 80%;
+    height: 50%;
+    margin-top: 10%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.temp-locked {
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/LockedLevelButton.png');
+}
+
+.temp-unlocked {
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/LevelButton.png');
+}
+
+.level-btn {
+    width: 150px;
+    height: 150px;
+    margin: 3%;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: white;
+    transition: 0.1s all;
+    font-size: 56px;
+    -unity-font-definition: url('project:/Assets/Font/Baskic8.OTF');
+    color: white;
+    padding-top: 3%;
+    -unity-font-style: bold;
+}
+
+#control-box {
+    background-color: black;
+    width: 60%;
+    height: auto;
+    margin: auto;
+}
+
+#control-box Button {
+    margin: 3% auto;
+    width: 35%;
+    height: 100px;
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/QuitButtonStatic.png');
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: white;
+    transition: 0.1s all;
+    font-size: 42px;
+    -unity-font-definition: url('project:/Assets/Font/Essentle4.OTF');
+    -unity-text-align: upper-center;
+    color: white;
+}
+
+Button:hover {
+    scale: 1.05;
+}
+
+Button:active {
+    scale: 0.95;
+}

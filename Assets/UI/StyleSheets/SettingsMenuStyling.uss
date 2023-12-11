@@ -1,0 +1,131 @@
+:root {
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#container > VisualElement Label {
+    justify-content: center;
+    align-items: center;
+    -unity-font-definition: url('project:/Assets/Font/Baskic8.OTF');
+}
+
+#options-box, #control-box {
+    border-width: 0px;
+    border-color: white;
+    border-radius: 5px;
+}
+
+#options-box {
+    flex-direction: column;
+    background-color: black;
+    width: 75%;
+    height: 75%;
+    margin: auto;
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/SettingsWindow.png');
+}
+
+#options-box DropdownField {
+    width: 70%;
+    margin: auto;
+    font-size: 48px;
+    -unity-font-style: bold;
+    color: white;
+    align-items: stretch;
+}
+
+DropdownField > Label {
+    margin-right: 5%;
+}
+
+DropdownField > VisualElement {
+    font-size: 16px;
+    color: black;
+    -unity-font-style: bold;
+    -unity-font-definition: url('project:/Assets/Font/PressStart2P-Regular.TTF');
+    position: absolute;
+    right: 0;
+    height: 75%;
+    width: 50%;
+}
+
+.unity-base-field__label { /* Try to figure this out. */
+    -unity-font-definition: url('project:/Assets/Font/Electronic Highway Sign.TTF');
+}
+
+#options-box SliderInt {
+    width: 70%;
+    margin: auto;
+    font-size: 48px;
+    -unity-font-style: bold;
+    color: white;
+}
+
+SliderInt > VisualElement {
+    margin-left: 5%;
+    align-items: center;
+}
+
+#unity-text-field {
+    font-size: 16px;
+    height: auto;
+    width: auto;
+    color: black;
+    margin-left: 5%;
+    -unity-font-definition: url('project:/Assets/Font/PressStart2P-Regular.TTF');
+}
+
+#unity-checkmark {
+    height: 40px;
+    width: 40px;
+}
+
+#control-box {
+    flex-direction: row;
+    background-color: black;
+    width: 60%;
+    height: auto;
+    margin: auto;
+}
+
+#control-box Button {
+    margin: 3% auto;
+    width: 35%;
+    height: 100px;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: white;
+    transition: 0.1s all;
+    font-size: 42px;
+    color: white;
+    -unity-font-definition: url('project:/Assets/Font/Essentle4.OTF');
+    -unity-text-align: upper-center;
+}
+
+#cancel-btn {
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/QuitButtonStatic.png');
+}
+
+#apply-btn {
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/MainMenuButtonStatic.png');
+}
+
+#control-box Button:hover {
+    scale: 1.05;
+}
+
+#control-box Button:active {
+    scale: 0.95;
+}

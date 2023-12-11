@@ -1,0 +1,31 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_src/UI/StyleSheets/PauseMenuStyling.uss?fileID=7433441132597879392&amp;guid=b7bfb42ac64dea24090586c7c4ae9f72&amp;type=3#PauseMenuStyling" />
+    <ui:VisualElement name="container">
+        <ui:VisualElement name="background" />
+        <ui:VisualElement name="options-box">
+            <ui:VisualElement name="header" class="grouped-row">
+                <ui:Label text="PAUSED!" display-tooltip-when-elided="true" name="title" class="heading-text" />
+                <ui:VisualElement name="pink-dude" />
+            </ui:VisualElement>
+            <ui:VisualElement name="overview-bar" class="grouped-row">
+                <ui:VisualElement name="life-count-cell" class="overview-cell">
+                    <ui:VisualElement name="pink-dude-head" class="overview-image" />
+                    <ui:Label text="x3" display-tooltip-when-elided="true" name="lives-text" enable-rich-text="true" class="overview-text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="collectibles-cell" class="overview-cell">
+                    <ui:VisualElement name="collectibles-image" class="overview-image" />
+                    <ui:Label text="x12" display-tooltip-when-elided="true" name="collectibles-text" class="overview-text" />
+                </ui:VisualElement>
+                <ui:VisualElement name="time-cell" class="overview-cell">
+                    <ui:VisualElement name="time-image" class="overview-image" />
+                    <ui:Label text="4:00" display-tooltip-when-elided="true" name="time-text" class="overview-text" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:GroupBox name="control-box" style="width: 50%;">
+                <ui:Button text="Resume" display-tooltip-when-elided="true" name="resume-btn" class="green-btn" />
+                <ui:Button text="Settings" display-tooltip-when-elided="true" name="settings-btn" class="green-btn" />
+                <ui:Button text="Quit" display-tooltip-when-elided="true" name="quit-btn" class="red-btn" />
+            </ui:GroupBox>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
