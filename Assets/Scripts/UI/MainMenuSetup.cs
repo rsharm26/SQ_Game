@@ -7,9 +7,6 @@ using UnityEngine.UIElements;
 public class MainMenuSetup : MonoBehaviour {
     [SerializeField] private UIDocument _document;
     [SerializeField] private StyleSheet _styleSheet;
-    [SerializeField] private UIDocument _levelSelector;
-    [SerializeField] private UIDocument _settingsMenu;
-    [SerializeField] private UIDocument _leaderBoard;
 
     private void Start() {
         VisualElement root = _document.rootVisualElement; // UXML (cavnas that you can throw elements on).
@@ -65,16 +62,18 @@ public class MainMenuSetup : MonoBehaviour {
         // Bind the whole thing to the entire canvas.
         root.Add(container);
 
-        // button event management NOT CLEAN rn, ideally we should throw all prefabs in their own scene.
-        // OR attempt to load dynamically even if this did not go well before.
-        playBtn.clickable.clicked += PlayButtonPressed;
-        leaderBtn.clickable.clicked += LeaderboardButtonPressed;
-        settingsBtn.clickable.clicked += SettingsButtonPressed;
+        // Bind events to each button the main menu.
+        UIContainer uiContainer = UIManager.GetInstance();
+        playBtn.clickable.clicked += () => uiContainer.InvokeUIElement(UIType.LevelSelection);
+        leaderBtn.clickable.clicked += () => uiContainer.InvokeUIElement(UIType.Leaderboard);
+        settingsBtn.clickable.clicked += () => uiContainer.InvokeUIElement(UIType.Settings);
         quitBtn.clickable.clicked += QuitButtonPressed;
 
+        // PENDING REMOVAL.
         InitDB();
     }
 
+    // Helpers to create visual elements with class name.
     private VisualElement Create(string className) {
         return Create<VisualElement>(className);
     }
@@ -85,19 +84,6 @@ public class MainMenuSetup : MonoBehaviour {
         return element;
     }
 
-    private void PlayButtonPressed() {
-        _levelSelector.rootVisualElement.style.display = DisplayStyle.Flex;
-    }
-
-    private void LeaderboardButtonPressed() {
-        _leaderBoard.GetComponent<LeaderboardManager>().ReinitLevelDropdown();
-        _leaderBoard.rootVisualElement.style.display = DisplayStyle.Flex;
-    }
-
-    private void SettingsButtonPressed() {
-        _settingsMenu.rootVisualElement.style.display = DisplayStyle.Flex;
-    }
-
     private void QuitButtonPressed() {
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false; // Exit in development.
@@ -106,6 +92,7 @@ public class MainMenuSetup : MonoBehaviour {
         Application.Quit(); // Exit in production.
     }
 
+    // BAD, move this back into DB manager, can execute every time a connection is open (not too expensive).
     private void InitDB() {
         DBManager dbManager = DBManager.GetInstance();
         dbManager.OpenDBConnection(DBName: "PixelAndy.db");

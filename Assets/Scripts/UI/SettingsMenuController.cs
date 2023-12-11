@@ -7,8 +7,6 @@ using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
 public class SettingsMenuController : MonoBehaviour {
-    [SerializeField] private UIDocument _document;
-
     private Button _cancelButton;
     private Button _applyButton;
     private DropdownField _screenResDropdown;
@@ -17,9 +15,12 @@ public class SettingsMenuController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        VisualElement root = _document.rootVisualElement;
+        VisualElement root = this.GetComponent<UIDocument>().rootVisualElement;
         _cancelButton = root.Q<Button>("cancel-btn");
         _applyButton = root.Q<Button>("apply-btn");
+        _screenResDropdown = root.Q<DropdownField>("screen-res-dropdown");
+        _displayModeDropdown = root.Q<DropdownField>("display-mode-dropdown");
+        _graphicsQualityDropdown = root.Q<DropdownField>("graphics-quality-dropdown");
 
         _cancelButton.clickable.clicked += CancelButtonPressed;
         _applyButton.clickable.clicked += ApplyButtonPressed;
@@ -43,9 +44,6 @@ public class SettingsMenuController : MonoBehaviour {
     }
 
     private void InitResolutionDropdown() {
-        VisualElement root = _document.rootVisualElement;
-        _screenResDropdown = root.Q<DropdownField>("screen-res-dropdown");
-
         // Use Screen.resolutions, returns an array of structs containing screen res + hz.
         // Format screen resolution exact to Resolution toString, easier comparison in LINQ below.
         _screenResDropdown.choices = Screen.resolutions.Select(res => $"{res.width} x {res.height} @ ({res.refreshRate}Hz)").ToList();
@@ -55,9 +53,6 @@ public class SettingsMenuController : MonoBehaviour {
     }
 
     private void InitModeDropdown() {
-        VisualElement root = _document.rootVisualElement;
-        _displayModeDropdown = root.Q<DropdownField>("display-mode-dropdown");
-
         FullScreenMode[] screenModes = (FullScreenMode[])Enum.GetValues(typeof(FullScreenMode));
 
         _displayModeDropdown.choices = screenModes
@@ -69,9 +64,6 @@ public class SettingsMenuController : MonoBehaviour {
     }
 
     private void InitGraphicsQualityDropdown() {
-        VisualElement root = _document.rootVisualElement;
-        _graphicsQualityDropdown = root.Q<DropdownField>("graphics-quality-dropdown");
-
         _graphicsQualityDropdown.choices = QualitySettings.names.ToList();
         _graphicsQualityDropdown.index = QualitySettings.GetQualityLevel();
     }

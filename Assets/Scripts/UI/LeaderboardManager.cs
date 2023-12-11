@@ -9,14 +9,12 @@ using UnityEngine.Profiling;
 using UnityEngine.UIElements;
 
 public class LeaderboardManager : MonoBehaviour {
-    [SerializeField] private UIDocument _document;
-
     private Button _exitButton;
     private DropdownField _levelSeclectorDropdown;
     private ListView _list;
 
     void Start() {
-        VisualElement root = _document.rootVisualElement;
+        VisualElement root = this.GetComponent<UIDocument>().rootVisualElement;
         _exitButton = root.Q<Button>("exit-btn");
         _levelSeclectorDropdown = root.Q<DropdownField>("level-select");
         _list = root.Q<ListView>("records-list");
