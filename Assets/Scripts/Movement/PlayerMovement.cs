@@ -223,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
         {                
             tabulator.Lives -= 1;           // update remaning lives in tabulator 
             Debug.Log("tabulator.lives: " + tabulator.Lives);
-            // playerBody.position = playerOrigin;  // reset player back to starting position 
+            playerBody.position = playerOrigin;  // reset player back to starting position 
         }
 
 
