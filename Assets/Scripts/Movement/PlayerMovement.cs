@@ -37,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]private float jumpForce = 14f;                          // Player Jumping velocity (SerializeField lets us change values in Player itslef)
     [SerializeField]private LayerMask jumpableGround;                       // Determines if the player is touching jumpable ground
 
+    [SerializeField] private AudioSource jumpSoundEffect;
+    [SerializeField] private AudioSource itemCollectEffect;
+    [SerializeField] private AudioSource deathEffect;
+
     public enum MovementState { idle, running, jumping, falling }           // Enum used to determine the correct state of the movement animation
 
     private Vector2 playerOrigin;               // record player starting position 
@@ -129,11 +133,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsGrounded())
         {
+            jumpSoundEffect.Play();
             playerBody.velocity = new Vector2(playerBody.velocity.x, jumpForce);
             doubleJump = true;
         }
         else if (doubleJump)
         {
+            jumpSoundEffect.Play();
             playerBody.velocity = new Vector2(playerBody.velocity.x, jumpForce);
             doubleJump = false;
             //if (playerBody.velocity.y < 0)
@@ -220,7 +226,8 @@ public class PlayerMovement : MonoBehaviour
     {
         // if it's into enemy, reduce available lives 
         if (other.gameObject.tag == "Enemy")
-        {                
+        {
+            deathEffect.Play();
             tabulator.Lives -= 1;           // update remaning lives in tabulator 
             Debug.Log("tabulator.lives: " + tabulator.Lives);
             playerBody.position = playerOrigin;  // reset player back to starting position 
@@ -238,6 +245,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "Collectable")
         {
+            itemCollectEffect.Play();
             tabulator.Collect++; 
             other.gameObject.SetActive(false);  // deactivate the collectable 
         }
