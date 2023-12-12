@@ -88,6 +88,16 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
+        } 
+        else if (Input.GetButtonDown("Cancel")) 
+        {
+            UIType? currentlyActive = UIManager.GetInstance().CurrentlyActive;
+
+            if (currentlyActive == UIType.PauseMenu || currentlyActive == UIType.InLevelOverlay || currentlyActive == null ) 
+            {
+                UIManager.GetInstance().ToggleUIElement(UIType.PauseMenu);
+                Time.timeScale = Time.timeScale != 1 ? 1 : 0;
+            }
         }
 
         UpdateAnimationState();
@@ -224,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     // when running into objects
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other) 
     {
         // if it's into enemy, reduce available lives 
         if (other.gameObject.tag == "Enemy")
@@ -233,6 +243,8 @@ public class PlayerMovement : MonoBehaviour
             tabulator.Lives -= 1;           // update remaning lives in tabulator 
             Debug.Log("tabulator.lives: " + tabulator.Lives);
             playerBody.position = playerOrigin;  // reset player back to starting position 
+            DynamicGameData gameData = GameDataManager.GetInstance();
+            gameData.LivesRemaining = tabulator.Lives;
         }
 
 
@@ -251,6 +263,13 @@ public class PlayerMovement : MonoBehaviour
             itemCollectEffect.Play();
             tabulator.Collect++; 
             other.gameObject.SetActive(false);  // deactivate the collectable 
+            DynamicGameData gameData = GameDataManager.GetInstance();
+            gameData.CollectiblesFound = tabulator.Collect;
+        }
+
+        // REMOVE ME!
+        if (other.gameObject.tag == "Portal") {
+            tabulator.Win = true;
         }
     }
 }

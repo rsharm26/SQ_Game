@@ -1,0 +1,104 @@
+:root {
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#container > VisualElement {
+    justify-content: center;
+    align-items: center;
+    border-width: 0px;
+    border-color: white;
+}
+
+#title {
+    font-size: 64px;
+    -unity-font-style: bold;
+    color: white;
+    margin-top: 10px;
+    -unity-font-definition: url('project:/Assets/Font/Electronic Highway Sign.TTF');
+}
+
+#options-box {
+    flex-direction: column;
+    width: 75%;
+    height: 75%;
+    margin: auto;
+    top: 25px;
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/SettingsWindow.png');
+}
+
+#options-box DropdownField {
+    width: 40%;
+    margin: auto;
+    font-size: 48px;
+    -unity-font-style: bold;
+    color: white;
+    align-items: center;
+    margin: auto;
+    -unity-font-definition: url('project:/Assets/Font/PressStart2P-Regular.TTF');
+}
+
+DropdownField > Label {
+    margin-right: 5%;
+}
+
+DropdownField > VisualElement {
+    font-size: 22px;
+    color: black;
+    -unity-font-style: bold;
+}
+
+#options-box ListView {
+    background-color: white;
+    border-radius: 15px;
+    flex-grow: 1;
+    flex-direction: row;
+    max-width: 80%;
+    max-height: 40%;
+    margin: auto auto 5% auto;
+    -unity-font-definition: url('project:/Assets/Font/Baskic8.OTF');
+    padding-top: 1%;
+}
+
+#control-box {
+    flex-direction: row;
+    width: 60%;
+    height: auto;
+    margin: auto;
+}
+
+#control-box Button {
+    margin: 3% auto;
+    width: 35%;
+    height: 100px;
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/QuitButtonStatic.png');
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: white;
+    transition: 0.1s all;
+    font-size: 42px;
+    -unity-font-definition: url('project:/Assets/Font/Essentle4.OTF');
+    -unity-text-align: upper-center;
+    color: white;
+}
+
+#control-box Button:hover {
+    scale: 1.05;
+}
+
+#control-box Button:active {
+    scale: 0.95;
+}

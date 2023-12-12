@@ -1,0 +1,60 @@
+:root {
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#container {
+    width: 100%;
+    height: 10%;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+#container > VisualElement {
+    justify-content: space-between;
+    align-items: flex-start;
+    border-width: 0px;
+    border-color: white;
+}
+
+.grouped-row {
+    flex-direction: row;
+    align-items: center;
+    width: 75%;
+    height: 100%;
+    top: 10px;
+}
+
+.overview-cell {
+    flex-direction: row;
+    align-items: center;
+    -unity-font-style: bold;
+    color: white;
+    font-size: 48px;
+    -unity-font-definition: url('project:/Assets/Font/Electronic Highway Sign.TTF');
+    color: rgb(202, 189, 62);
+}
+
+.overview-image {
+    min-height: 55px;
+    min-width: 55px;
+    margin-right: 10%;
+}
+
+#pink-dude-head {
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/PinkDudeHead.png');
+    min-width: 60px;
+}
+
+#collectibles-image {
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/Cherry.png');
+}
+
+#time-image {
+    background-image: url('project:/Assets/CustomSprites/FinalSprites/Clock.png');
+}
+
+.overview-text {
+    min-height: 65px;
+    -unity-text-align: lower-center;
+}

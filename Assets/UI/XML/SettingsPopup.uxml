@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheets/SettingsMenuStyling.uss?fileID=7433441132597879392&amp;guid=379fc2b8b6f3f484f8889ef529bda7d8&amp;type=3#SettingsMenuStyling" />
+    <ui:VisualElement name="container">
+        <ui:VisualElement name="background" />
+        <ui:VisualElement name="options-box">
+            <ui:DropdownField label="Screen Resolution" index="0" name="screen-res-dropdown" />
+            <ui:DropdownField label="Display Mode" index="0" name="display-mode-dropdown" />
+            <ui:DropdownField label="Graphics Quality" index="0" name="graphics-quality-dropdown" />
+            <ui:SliderInt picking-mode="Ignore" label="Volume" value="100" high-value="100" show-input-field="true" inverted="false" name="volume-slider" style="width: 70%; height: auto; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="control-box">
+            <ui:Button text="Cancel" display-tooltip-when-elided="true" name="cancel-btn" />
+            <ui:Button text="Apply" display-tooltip-when-elided="true" name="apply-btn" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

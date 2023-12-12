@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab612fb47f5414148a3fa8fe439a5634, type: 3}
+  m_Name: UIContainerObject
+  m_EditorClassIdentifier: 
+  _uiPrefabs:
+  - uiType: 0
+    uiElement: {fileID: 8173976938129440846, guid: d9e927db92cb71b49a63ae01fb1dafcd, type: 3}
+  - uiType: 1
+    uiElement: {fileID: 5824904940473868246, guid: 79488906cfc3bea4da8a148c572ebcea, type: 3}
+  - uiType: 2
+    uiElement: {fileID: 831032853575314481, guid: 8e4b180e294c84b4c8b6fe40927c3c71, type: 3}
+  - uiType: 3
+    uiElement: {fileID: 2182515502065262200, guid: fd0506004919a1948bf4a34b67510c90, type: 3}
+  - uiType: 4
+    uiElement: {fileID: 3905397471301923225, guid: 034bed9957ad79648b45a189002ad1ee, type: 3}
+  - uiType: 5
+    uiElement: {fileID: 2027462422438978731, guid: 3d7c3fb042998454e9ef89781fc02521, type: 3}
+  _sortingOrder: 10
