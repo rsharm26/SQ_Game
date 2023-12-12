@@ -40,6 +40,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioSource jumpSoundEffect;
     [SerializeField] private AudioSource itemCollectEffect;
     [SerializeField] private AudioSource deathEffect;
+    [SerializeField] private AudioSource winEffect;
+
 
     public enum MovementState { idle, running, jumping, falling }           // Enum used to determine the correct state of the movement animation
 
@@ -237,6 +239,7 @@ public class PlayerMovement : MonoBehaviour
         // if arrived at portal, win. 
         if (other.gameObject.tag == "Portal")
         {
+            winEffect.Play();
             tabulator.Win = true; 
         }
     }
