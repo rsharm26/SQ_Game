@@ -30,24 +30,27 @@
 
 #options-box {
     flex-direction: column;
-    background-color: black;
     width: 75%;
     height: 75%;
     margin: auto;
+    top: 25px;
     background-image: url('project:/Assets/CustomSprites/FinalSprites/SettingsWindow.png');
 }
 
 #options-box DropdownField {
     width: 70%;
+    height: 10%;
+    top: 10px;
     margin: auto;
-    font-size: 48px;
+    font-size: 42px;
     -unity-font-style: bold;
     color: white;
-    align-items: stretch;
 }
 
 DropdownField > Label {
     margin-right: 5%;
+    height: 100%;
+    -unity-text-align: middle-center;
 }
 
 DropdownField > VisualElement {
@@ -68,7 +71,7 @@ DropdownField > VisualElement {
 #options-box SliderInt {
     width: 70%;
     margin: auto;
-    font-size: 48px;
+    font-size: 42px;
     -unity-font-style: bold;
     color: white;
 }
@@ -94,7 +97,6 @@ SliderInt > VisualElement {
 
 #control-box {
     flex-direction: row;
-    background-color: black;
     width: 60%;
     height: auto;
     margin: auto;

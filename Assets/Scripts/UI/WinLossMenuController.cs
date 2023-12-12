@@ -22,12 +22,8 @@ public class WinLossMenuController : MonoBehaviour {
         _menuButton.clickable.clicked += ReturnToMainMenu;
     }
 
-    private void CloseWindow() {
-        UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
-    }
-
     private void ReturnToMainMenu() {
-        CloseWindow(); // See if needed during actual testing.
+        UIManager.GetInstance().CloseAllActiveElements();
         SceneManager.LoadScene("MainMenu");
     }
 }

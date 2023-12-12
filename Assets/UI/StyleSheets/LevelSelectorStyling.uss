@@ -36,7 +36,7 @@
     flex-direction: column;
     width: 75%;
     height: 75%;
-    margin-top: 1.5%;
+    top: 40px;
     background-image: url('project:/Assets/CustomSprites/FinalSprites/SettingsWindow.png');
 }
 
@@ -73,10 +73,10 @@
 }
 
 #control-box {
-    background-color: black;
     width: 60%;
     height: auto;
     margin: auto;
+    top: 10px;
 }
 
 #control-box Button {

@@ -36,6 +36,7 @@
     width: 75%;
     height: 75%;
     margin: auto;
+    top: 25px;
     background-image: url('project:/Assets/CustomSprites/FinalSprites/SettingsWindow.png');
 }
 
@@ -74,7 +75,6 @@ DropdownField > VisualElement {
 
 #control-box {
     flex-direction: row;
-    background-color: black;
     width: 60%;
     height: auto;
     margin: auto;
