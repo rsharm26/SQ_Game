@@ -233,6 +233,8 @@ public class PlayerMovement : MonoBehaviour
             tabulator.Lives -= 1;           // update remaning lives in tabulator 
             Debug.Log("tabulator.lives: " + tabulator.Lives);
             playerBody.position = playerOrigin;  // reset player back to starting position 
+            DynamicGameData gameData = GameDataManager.GetInstance();
+            gameData.LivesRemaining = tabulator.Lives;
         }
 
 
@@ -249,6 +251,8 @@ public class PlayerMovement : MonoBehaviour
         {
             tabulator.Collect++; 
             other.gameObject.SetActive(false);  // deactivate the collectable 
+            DynamicGameData gameData = GameDataManager.GetInstance();
+            gameData.CollectiblesFound = tabulator.Collect;
         }
     }
 }

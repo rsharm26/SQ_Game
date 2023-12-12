@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/_src/UI/StyleSheets/WinPopupStyling.uss?fileID=7433441132597879392&amp;guid=9d2efeeecac294e48b04b16478fd3b2e&amp;type=3#WinPopupStyling" />
+    <Style src="project://database/Assets/UI/StyleSheets/WinLossPopupStyling.uss?fileID=7433441132597879392&amp;guid=9d2efeeecac294e48b04b16478fd3b2e&amp;type=3#WinLossPopupStyling" />
     <ui:VisualElement name="container">
         <ui:VisualElement name="background" />
         <ui:VisualElement name="options-box">
@@ -28,7 +28,7 @@
             <ui:GroupBox name="control-box">
                 <ui:Button text="Levels" display-tooltip-when-elided="true" name="level-selector-btn" class="green-btn" />
                 <ui:Button text="Leaderboard" display-tooltip-when-elided="true" name="leader-btn" class="green-btn" />
-                <ui:Button text="Menu" display-tooltip-when-elided="true" name="menu-btn" class="red-btn" />
+                <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="menu-btn" class="red-btn" />
             </ui:GroupBox>
         </ui:VisualElement>
     </ui:VisualElement>

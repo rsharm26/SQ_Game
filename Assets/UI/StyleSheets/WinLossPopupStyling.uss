@@ -13,7 +13,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 1.0);
 }
 
 #container > VisualElement {
@@ -145,8 +145,12 @@
     -unity-text-align: upper-center;
 }
 
-#level-selector-btn, #menu-btn {
+#level-selector-btn {
     font-size: 32px;
+}
+
+#menu-btn {
+    font-size: 28px;
 }
 
 .green-btn {

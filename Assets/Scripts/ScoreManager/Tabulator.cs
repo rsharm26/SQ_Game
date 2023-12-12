@@ -5,15 +5,12 @@ using TMPro;    // library needed for text field
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+// NOTE FROM/FOR RS, current updating of DynamicGameData is bad.
+// It is sloppy to update both the tabulator and scriptable object in the same places.
+// Attempt an OnPropertyUpdate() using the observer pattern during refactor, this should work.
 public class Tabulator : MonoBehaviour
 {
-    //  what to load upon winning / losing
-    [SerializeField]
-    private string winScene; 
-
-    [SerializeField]
-    private string lostScene; 
-
     // backing field & property for lives
     [SerializeField]
     private int lives = 3;
@@ -51,18 +48,27 @@ public class Tabulator : MonoBehaviour
     // property Win, set when player encounters portal (or satisfies other win condition)
     public bool Win {get; set;}
 
+    // field to track if win or loss should be determined.
+    private bool shouldCheckWinOrLoss;
+
     private void Start()
     {
         startTime = Time.time; 
-        Win = false; 
-        blockDestroyed = false; 
+        Win = false;
+        blockDestroyed = false;
+        shouldCheckWinOrLoss = true;
+
+        DynamicGameData gameData = GameDataManager.GetInstance();
+        gameData.CollectibleUnlockThreshold = unlockThreshold;
     }
 
     private void Update()
     {
-        elapsedTime = Time.time - startTime; 
-        checkLost();
-        checkWin(); 
+        elapsedTime = Time.time - startTime;
+        if (shouldCheckWinOrLoss) 
+        {
+            checkWinOrLoss();
+        }
 
         if (Collect >= unlockThreshold && !blockDestroyed)      // if player collected enough pickups, destroy the block that stops them from accessing winning portal
         {
@@ -71,11 +77,28 @@ public class Tabulator : MonoBehaviour
         }
     }
 
-    private void checkLost()
+    private void checkWinOrLoss() {
+        if (Win) 
+        {
+            PlayerPrefs.SetInt("TimeBonus", Convert.ToInt16(remainingTime.TotalSeconds));
+            PlayerPrefs.SetInt("LevelScore", LevelBaseScore);
+            PlayerPrefs.SetInt("CollectBonus", Collect);
+            PlayerPrefs.SetInt("LivesBonus", Lives * BonusPerLife);
+            UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
+            shouldCheckWinOrLoss = false;
+        } 
+        else if (lives == 0 || elapsedTime >= allowedTime) 
+        {
+            UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
+            shouldCheckWinOrLoss = false;
+        }
+    }
+
+    /*private void checkLost()
     {
         if (lives == 0 || elapsedTime >= allowedTime)   // lose if ran out of lives or time. 
         {
-            SceneManager.LoadScene(lostScene);
+            UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
         }
     }
 
@@ -87,9 +110,9 @@ public class Tabulator : MonoBehaviour
             PlayerPrefs.SetInt("TimeBonus", Convert.ToInt16(remainingTime.TotalSeconds)); 
             PlayerPrefs.SetInt("LevelScore", LevelBaseScore); 
             PlayerPrefs.SetInt("CollectBonus", Collect); 
-            PlayerPrefs.SetInt("LivesBonus", Lives * BonusPerLife); 
-            SceneManager.LoadScene(winScene);
+            PlayerPrefs.SetInt("LivesBonus", Lives * BonusPerLife);
+            UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
         }
-    }
+    }*/
     
 }

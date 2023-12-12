@@ -50,12 +50,21 @@ public class UIContainer : ScriptableObject {
         if (currentDisplay == DisplayStyle.Flex) {
             uiElement.rootVisualElement.style.display = DisplayStyle.None;
             CurrentlyActive = null;
+            uiElement.sortingOrder -= 1; // Arbitrary, revise.
         } else {
             uiElement.rootVisualElement.style.display = DisplayStyle.Flex;
             CurrentlyActive = type;
+            uiElement.sortingOrder += 1; // Arbitrary, revise.
         }
+    }
 
-        uiElement.sortingOrder = _sortingOrder; // Arbitrary, revise.
+
+    // Use this to close all active windows at once.
+    public void CloseAllActiveElements() {
+        foreach (GameObject uiElement in  _instantiatedUIElements.Values) {
+            uiElement.GetComponent<UIDocument>().rootVisualElement.style.display = DisplayStyle.None;
+            CurrentlyActive = null;
+        }
     }
 }
 

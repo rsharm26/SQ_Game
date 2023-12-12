@@ -46,7 +46,7 @@ public class LevelSelectorManager : MonoBehaviour {
     }
 
     private void PlayableButtonPressed(Button pressedButton) {
-        CloseWindow();
+        UIManager.GetInstance().CloseAllActiveElements();
         string sceneName = "Level " + Regex.Match(pressedButton.name, "[0-9]").Value;
         SceneManager.LoadScene(sceneName);
     }
