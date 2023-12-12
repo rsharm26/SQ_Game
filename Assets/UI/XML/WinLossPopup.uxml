@@ -4,28 +4,28 @@
         <ui:VisualElement name="background" />
         <ui:VisualElement name="options-box">
             <ui:VisualElement name="header" class="grouped-row">
-                <ui:Label text="You win!" display-tooltip-when-elided="true" name="title" class="heading-text" />
+                <ui:Label display-tooltip-when-elided="true" name="title" class="heading-text" />
                 <ui:VisualElement name="pink-dude" />
             </ui:VisualElement>
             <ui:VisualElement name="overview-bar" class="grouped-row">
                 <ui:VisualElement name="overall-score-cell" class="overview-cell">
                     <ui:VisualElement name="star-image" class="overview-image" />
-                    <ui:Label text="You scored: &lt;u&gt;100&lt;/u&gt;" display-tooltip-when-elided="true" name="overall-score-text" class="overview-text" />
+                    <ui:Label display-tooltip-when-elided="true" name="overall-score-text" class="overview-text" />
                 </ui:VisualElement>
                 <ui:VisualElement name="lives-score-cell" class="overview-sub-cell">
                     <ui:VisualElement name="pink-dude-head" class="overview-image" />
-                    <ui:Label text="25" display-tooltip-when-elided="true" name="lives-score-text" class="overview-text" />
+                    <ui:Label display-tooltip-when-elided="true" name="lives-score-text" class="overview-text" />
                 </ui:VisualElement>
                 <ui:VisualElement name="collectibles-score-cell" class="overview-sub-cell">
                     <ui:VisualElement name="collectibles-image" class="overview-image" />
-                    <ui:Label text="25" display-tooltip-when-elided="true" name="collectibles-score-text" class="overview-text" />
+                    <ui:Label display-tooltip-when-elided="true" name="collectibles-score-text" class="overview-text" />
                 </ui:VisualElement>
                 <ui:VisualElement name="time-score-cell" class="overview-sub-cell">
                     <ui:VisualElement name="time-image" class="overview-image" />
-                    <ui:Label text="25" display-tooltip-when-elided="true" name="time-score-text" class="overview-text" />
+                    <ui:Label display-tooltip-when-elided="true" name="time-score-text" class="overview-text" />
                 </ui:VisualElement>
                 <ui:VisualElement name="base-score-cell" class="overview-sub-cell">
-                    <ui:Label text="+ 25" display-tooltip-when-elided="true" name="base-score-text" class="overview-text" />
+                    <ui:Label display-tooltip-when-elided="true" name="base-score-text" class="overview-text" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:GroupBox name="control-box">

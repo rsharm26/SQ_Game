@@ -12,8 +12,6 @@ public class PauseMenuController : MonoBehaviour {
 
     private void Start() {
         VisualElement root = this.GetComponent<UIDocument>().rootVisualElement;
-        // JANK, reset color...
-        root.Q<Label>("collectibles-text").style.color = new StyleColor(new Color32(255, 255, 255, 255));
 
         _resumeButton = root.Q<Button>("resume-btn");
         _settingsButton = root.Q<Button>("settings-btn");
@@ -49,6 +47,8 @@ public class PauseMenuController : MonoBehaviour {
 
         if (_gameData.CollectiblesFound >= _gameData.CollectibleUnlockThreshold) {
             collectiblesText.style.color = new StyleColor(new Color32(255, 255, 15, 255));
+        } else {
+            collectiblesText.style.color = new StyleColor(new Color32(255, 255, 255, 255));
         }
     }
 }

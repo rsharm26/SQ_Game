@@ -76,7 +76,6 @@
 }
 
 #pink-dude {
-    background-image: url('project:/Assets/CustomSprites/FinalSprites/PinkDudeHappy.png');
     min-height: 125px;
     min-width: 125px;
     margin-bottom: 7%;
@@ -92,10 +91,8 @@
 .overview-sub-cell > .overview-image {
     min-height: 40px;
     min-width: 40px;
-    right: 10px;
-    
+    right: 10px;   
 }
-
 #pink-dude-head {
     background-image: url('project:/Assets/CustomSprites/FinalSprites/PinkDudeHead.png');
 }
@@ -106,6 +103,11 @@
 
 #time-image {
     background-image: url('project:/Assets/CustomSprites/FinalSprites/Clock.png');
+}
+
+.overview-sub-cell > .overview-text {
+    font-size: 28px;
+    top: 20px;
 }
 
 .overview-text {

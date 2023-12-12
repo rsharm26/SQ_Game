@@ -8,9 +8,6 @@ public class InLevelOverlayController : MonoBehaviour {
     private DynamicGameData _gameData;
 
     private void Start() {
-        // JANK, reset color...
-        this.GetComponent<UIDocument>().rootVisualElement
-            .Q<Label>("collectibles-text").style.color = new StyleColor(new Color32(202, 189, 62, 255));
         _gameData = GameDataManager.GetInstance();
         _gameData.DataUpdated += RefreshBoundData;
         RefreshBoundData(); // Must call once manually so data is set before level starts.
@@ -27,6 +24,8 @@ public class InLevelOverlayController : MonoBehaviour {
 
         if (_gameData.CollectiblesFound >= _gameData.CollectibleUnlockThreshold) {
             collectiblesText.style.color = new StyleColor(new Color32(255, 255, 15, 255));
+        } else {
+            collectiblesText.style.color = new StyleColor(new Color32(202, 189, 62, 255));
         }
     }
 }

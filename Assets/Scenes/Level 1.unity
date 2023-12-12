@@ -73003,6 +73003,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pineapple
       objectReference: {fileID: 0}
+    - target: {fileID: 5761970278586378669, guid: 16d2d91ad169dca4d9b5f343a79fb79a, type: 3}
+      propertyPath: m_TagString
+      value: Collectable
+      objectReference: {fileID: 0}
     - target: {fileID: 5761970278586378670, guid: 16d2d91ad169dca4d9b5f343a79fb79a, type: 3}
       propertyPath: m_RootOrder
       value: 1

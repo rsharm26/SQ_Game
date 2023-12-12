@@ -90,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
             if (currentlyActive == UIType.PauseMenu || currentlyActive == UIType.InLevelOverlay || currentlyActive == null ) 
             {
                 UIManager.GetInstance().ToggleUIElement(UIType.PauseMenu);
+                Time.timeScale = Time.timeScale != 1 ? 1 : 0;
             }
         }
 

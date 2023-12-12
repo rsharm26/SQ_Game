@@ -68,13 +68,15 @@ public class Tabulator : MonoBehaviour
         gameData.CollectiblesFound = collect;
         gameData.CollectibleUnlockThreshold = unlockThreshold;
         gameData.LivesRemaining = lives;
+        gameData.BonusPerLife = BonusPerLife;
+        gameData.LevelBaseScore = LevelBaseScore;
     }
 
     private void Update()
     {
         elapsedTime = Time.time - startTime;
-        DynamicGameData gameData = GameDataManager.GetInstance();
         gameData.RemainingTime = remainingTime;
+
         if (shouldCheckWinOrLoss) 
         {
             checkWinOrLoss();
@@ -88,20 +90,18 @@ public class Tabulator : MonoBehaviour
     }
 
     private void checkWinOrLoss() {
-        if (Win) 
+        if (Win || lives == 0 || elapsedTime >= allowedTime) 
         {
-            PlayerPrefs.SetInt("TimeBonus", Convert.ToInt16(remainingTime.TotalSeconds));
-            PlayerPrefs.SetInt("LevelScore", LevelBaseScore);
-            PlayerPrefs.SetInt("CollectBonus", Collect);
-            PlayerPrefs.SetInt("LivesBonus", Lives * BonusPerLife);
+            gameData.Win = Win;
             UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
             shouldCheckWinOrLoss = false;
+            Time.timeScale = 0;
+
+            if (gameData.Win) 
+            {
+                
+            }
         } 
-        else if (lives == 0 || elapsedTime >= allowedTime) 
-        {
-            UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
-            shouldCheckWinOrLoss = false;
-        }
     }
 
     /*private void checkLost()
