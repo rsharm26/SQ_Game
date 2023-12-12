@@ -11,13 +11,16 @@ using UnityEngine.SceneManagement;
 // Attempt an OnPropertyUpdate() using the observer pattern during refactor, this should work.
 public class Tabulator : MonoBehaviour
 {
+    // field to hold DynamicGameData handle.
+    DynamicGameData gameData;
+
     // backing field & property for lives
     [SerializeField]
     private int lives = 3;
     public int Lives
     {
         get{return lives;}
-        set{ lives = value; }
+        set{ lives = value; gameData.LivesRemaining = value; }
     }
     
     // fields related to level remaining time
@@ -36,9 +39,11 @@ public class Tabulator : MonoBehaviour
     [SerializeField]
     private int unlockThreshold = 12; 
     public int UnlockThreshold { get => unlockThreshold; }
-    private bool blockDestroyed; 
+    private bool blockDestroyed;
 
-    public int Collect {get; set;}      // property to track # of collectables
+    public int collect;
+
+    public int Collect {get => collect; set { collect = value; gameData.CollectiblesFound = value; } }      // property to track # of collectables
 
     [SerializeField]
     private int LevelBaseScore = 50; 
@@ -57,14 +62,18 @@ public class Tabulator : MonoBehaviour
         Win = false;
         blockDestroyed = false;
         shouldCheckWinOrLoss = true;
+        collect = 0;
 
-        DynamicGameData gameData = GameDataManager.GetInstance();
+        gameData = GameDataManager.GetInstance();
         gameData.CollectibleUnlockThreshold = unlockThreshold;
+        gameData.LivesRemaining = lives;
     }
 
     private void Update()
     {
         elapsedTime = Time.time - startTime;
+        DynamicGameData gameData = GameDataManager.GetInstance();
+        gameData.RemainingTime = remainingTime;
         if (shouldCheckWinOrLoss) 
         {
             checkWinOrLoss();

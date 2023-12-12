@@ -22,7 +22,8 @@ public class PauseMenuController : MonoBehaviour {
         _quitButton.clickable.clicked += ReturnToMainMenu;
 
         _gameData = GameDataManager.GetInstance();
-        InitDataBindings();
+        _gameData.DataUpdated += RefreshBoundData;
+        RefreshBoundData(); // Must call once manually so data is set before pause menu opened.
     }
 
     private void CloseWindow() {
@@ -34,17 +35,13 @@ public class PauseMenuController : MonoBehaviour {
         SceneManager.LoadScene("MainMenu");
     }
 
-    private void InitDataBindings() {
+    private void RefreshBoundData() {
         Label timeText = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("time-text");
         Label livesText = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("lives-text");
         Label collectiblesText = this.GetComponent<UIDocument>().rootVisualElement.Q<Label>("collectibles-text");
 
-        timeText.bindingPath = "_gameData.RemainingTime";
-        livesText.bindingPath = "_gameData.LivesRemaining";
-        collectiblesText.bindingPath = "_gameData.CollectiblesFound";
-
-        timeText.text = "Test Time";
-        livesText.text = "Test Lives";
-        collectiblesText.text = "Test Collectibles";
+        timeText.text = $"{(int)_gameData.RemainingTime.TotalMinutes}:{_gameData.RemainingTime.Seconds:D2}";
+        livesText.text = $"x{_gameData.LivesRemaining}";
+        collectiblesText.text = $"x{_gameData.CollectiblesFound}";
     }
 }
