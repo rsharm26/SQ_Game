@@ -65,6 +65,7 @@ public class Tabulator : MonoBehaviour
         collect = 0;
 
         gameData = GameDataManager.GetInstance();
+        gameData.CollectiblesFound = collect;
         gameData.CollectibleUnlockThreshold = unlockThreshold;
         gameData.LivesRemaining = lives;
     }

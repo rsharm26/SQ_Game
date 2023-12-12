@@ -76,6 +76,7 @@
 
 #pink-dude-head {
     background-image: url('project:/Assets/CustomSprites/FinalSprites/PinkDudeHead.png');
+    min-width: 60px;
 }
 
 #collectibles-image {

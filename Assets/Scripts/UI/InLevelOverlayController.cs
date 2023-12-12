@@ -4,38 +4,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
-public class PauseMenuController : MonoBehaviour {
-    private Button _resumeButton;
-    private Button _settingsButton;
-    private Button _quitButton;
+public class InLevelOverlayController : MonoBehaviour {
     private DynamicGameData _gameData;
 
     private void Start() {
-        VisualElement root = this.GetComponent<UIDocument>().rootVisualElement;
         // JANK, reset color...
-        root.Q<Label>("collectibles-text").style.color = new StyleColor(new Color32(255, 255, 255, 255));
-
-        _resumeButton = root.Q<Button>("resume-btn");
-        _settingsButton = root.Q<Button>("settings-btn");
-        _quitButton = root.Q<Button>("quit-btn");
-
-        _resumeButton.clickable.clicked += CloseWindow;
-        UIContainer uiContainer = UIManager.GetInstance();
-        _settingsButton.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.Settings);
-        _quitButton.clickable.clicked += ReturnToMainMenu;
-
+        this.GetComponent<UIDocument>().rootVisualElement
+            .Q<Label>("collectibles-text").style.color = new StyleColor(new Color32(202, 189, 62, 255));
         _gameData = GameDataManager.GetInstance();
         _gameData.DataUpdated += RefreshBoundData;
-        RefreshBoundData(); // Must call once manually so data is set before pause menu opened.
-    }
-
-    private void CloseWindow() {
-        UIManager.GetInstance().ToggleUIElement(UIType.PauseMenu);
-    }
-
-    private void ReturnToMainMenu() {
-        UIManager.GetInstance().CloseAllActiveElements();
-        SceneManager.LoadScene("MainMenu");
+        RefreshBoundData(); // Must call once manually so data is set before level starts.
     }
 
     private void RefreshBoundData() {

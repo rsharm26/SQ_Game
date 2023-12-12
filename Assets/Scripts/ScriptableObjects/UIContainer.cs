@@ -10,9 +10,7 @@ public class UIContainer : ScriptableObject {
     [SerializeField]
     private List<PrefabbedUIElement> _uiPrefabs;
 
-    // Also specify sort order.
-    [SerializeField]
-    private int _sortingOrder;
+    private int _sortingOrder = 0;
 
     // Property that calling classes can use to check currently active before invoking the toggle method.
     // SEE IF YOU CAN REVISE.
@@ -50,11 +48,10 @@ public class UIContainer : ScriptableObject {
         if (currentDisplay == DisplayStyle.Flex) {
             uiElement.rootVisualElement.style.display = DisplayStyle.None;
             CurrentlyActive = null;
-            uiElement.sortingOrder -= 1; // Arbitrary, revise.
         } else {
             uiElement.rootVisualElement.style.display = DisplayStyle.Flex;
             CurrentlyActive = type;
-            uiElement.sortingOrder += 1; // Arbitrary, revise.
+            uiElement.sortingOrder = ++_sortingOrder;
         }
     }
 
@@ -74,5 +71,6 @@ public enum UIType {
     Leaderboard,
     Settings,
     PauseMenu,
-    WinLossMenu
+    WinLossMenu,
+    InLevelOverlay
 }

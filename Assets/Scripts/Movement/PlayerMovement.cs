@@ -87,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
         {
             UIType? currentlyActive = UIManager.GetInstance().CurrentlyActive;
 
-            if (currentlyActive == UIType.PauseMenu || currentlyActive == null) 
+            if (currentlyActive == UIType.PauseMenu || currentlyActive == UIType.InLevelOverlay || currentlyActive == null ) 
             {
                 UIManager.GetInstance().ToggleUIElement(UIType.PauseMenu);
             }
