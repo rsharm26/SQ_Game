@@ -26,7 +26,7 @@
 #options-box {
     flex-direction: column;
     width: 75%;
-    height: 75%;
+    height: 80%;
     margin: auto;
     background-image: url('project:/Assets/CustomSprites/FinalSprites/SettingsWindow.png');
 }
@@ -42,36 +42,37 @@
     color: white;
     -unity-font-definition: url('project:/Assets/Font/Electronic Highway Sign.TTF');
     font-size: 72px;
-    margin-top: 5%;
+    margin-top: 3%;
 }
 
 #overview-bar {
     flex-direction: column;
     width: 35%;
-    height: 35%;
-    justify-content: flex-end;
+    height: 30%;
     -unity-font-definition: url('project:/Assets/Font/Baskic8.OTF');
     -unity-font-style: bold;
     color: white;
     font-size: 36px;
+    top: 10px;
 }
 
 #overview-bar > * {
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-#overall-score-cell {
-    height: 35%;
+    align-items: center; 
 }
 
 .overview-cell {
-    width: 100%;
+    width: 75%;
+    height: 35%;
+    justify-content: center;
+    margin-bottom: 3%;
 }
 
 .overview-sub-cell {
-    margin-right: 20px;
+    width: 74%;
+    justify-content: flex-end;
+    margin-bottom: 2%;
+    margin-top: 2%;
 }
 
 #pink-dude {
@@ -89,10 +90,10 @@
 }
 
 .overview-sub-cell > .overview-image {
-    min-height: 50px;
-    min-width: 50px;
-    right: 50px;
-    margin-top: 5%;
+    min-height: 40px;
+    min-width: 40px;
+    right: 10px;
+    
 }
 
 #pink-dude-head {
@@ -108,18 +109,9 @@
 }
 
 .overview-text {
-    min-height: 65px;
     -unity-text-align: lower-center;
-    font-size: 48px;
-}
-
-#score-text {
-    margin-top: 7%;
-}
-
-.overview-sub-cell > #score-text {
-    margin-top: 25%;
-    left: 5px;
+    font-size: 36px;
+    top: 25px;
 }
 
 #control-box {
