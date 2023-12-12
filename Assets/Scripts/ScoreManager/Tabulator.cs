@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TMPro;    // library needed for text field
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
 
 
@@ -97,9 +99,16 @@ public class Tabulator : MonoBehaviour
             shouldCheckWinOrLoss = false;
             Time.timeScale = 0;
 
-            if (gameData.Win) 
+            if (Win) 
             {
-                
+                int overallScore = LevelBaseScore + Collect + Convert.ToInt16(remainingTime.TotalSeconds) + (Lives * BonusPerLife);
+
+                DBManager dBManager = DBManager.GetInstance();
+                dBManager.OpenDBConnection("PixelAndy.db");
+                dBManager.ExecuteParamQueryNonReader(
+                    @"INSERT INTO UserScore (UserID, LevelID, Score) VALUES " +
+                        $@"({gameData.UserID}, {Regex.Match(SceneManager.GetActiveScene().name, "[0-9]").Value}, {overallScore});"
+                );
             }
         } 
     }

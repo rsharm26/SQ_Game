@@ -7,8 +7,10 @@ using UnityEngine.UIElements;
 public class MainMenuSetup : MonoBehaviour {
     [SerializeField] private UIDocument _document;
     [SerializeField] private StyleSheet _styleSheet;
+    DynamicGameData _gameData;
 
     private void Start() {
+        _gameData = GameDataManager.GetInstance();
         VisualElement root = _document.rootVisualElement; // UXML (cavnas that you can throw elements on).
         root.Clear(); // Clear/re-draw for onvalidate purposes.
         root.styleSheets.Add(_styleSheet);
@@ -23,9 +25,16 @@ public class MainMenuSetup : MonoBehaviour {
         Label gameTitle = Create<Label>("game-title");
         gameTitle.text = "Pixel Andy's\n<u>Adventure</u>";
 
+        // Textbox for user's name.
+        TextField userNameInput = Create<TextField>("user-name-input");
+        userNameInput.maxLength = 10;
+        userNameInput.label = "Enter your name: ";
+        userNameInput.value = _gameData.UserName;
+
         // Button array.
         Button playBtn = Create<Button>("play-btn");
         playBtn.text = "PLAY";
+        playBtn.SetEnabled(!string.IsNullOrEmpty(_gameData.UserName)); // A bool for active player would be better.
 
         Button leaderBtn = Create<Button>("leader-btn");
         leaderBtn.text = "LEADERBOARD";
@@ -35,11 +44,6 @@ public class MainMenuSetup : MonoBehaviour {
 
         Button quitBtn = Create<Button>("quit-btn");
         quitBtn.text = "QUIT";
-
-        // TESTING.
-        TextField userNameInput = Create<TextField>("user-name-input");
-        userNameInput.maxLength = 10;
-        userNameInput.label = "Enter your name: ";
 
         // Studio Attribution.
         Label studioAttribution = Create<Label>("studio-attr");
@@ -64,13 +68,12 @@ public class MainMenuSetup : MonoBehaviour {
 
         // Bind events to each button the main menu.
         UIContainer uiContainer = UIManager.GetInstance();
-        playBtn.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.LevelSelection);
+        playBtn.clickable.clicked += PlayButtonPressed;
         leaderBtn.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.Leaderboard);
         settingsBtn.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.Settings);
         quitBtn.clickable.clicked += QuitButtonPressed;
 
-        // PENDING REMOVAL.
-        InitDB();
+        userNameInput.RegisterValueChangedCallback((evt) => OnTextFieldValueChanged(evt));
     }
 
     // Helpers to create visual elements with class name.
@@ -79,9 +82,58 @@ public class MainMenuSetup : MonoBehaviour {
     }
 
     private T Create<T>(string className) where T : VisualElement, new() {
-        T element = new T();
+        T element = new();
         element.AddToClassList(className);
         return element;
+    }
+
+    private void OnTextFieldValueChanged(ChangeEvent<string> evt) {
+        VisualElement root = _document.rootVisualElement;
+
+        if (evt.newValue.Trim().Length != 0) {
+            root.Q<Button>(className: "play-btn")?.SetEnabled(true);    
+        } else {
+            root.Q<Button>(className: "play-btn")?.SetEnabled(false);
+        }
+    }
+
+    private void PlayButtonPressed() {
+        VisualElement root = _document.rootVisualElement;
+        string name = root.Q<TextField>(className: "user-name-input").text.Trim();
+
+        DBManager dbManager = DBManager.GetInstance();
+        dbManager.OpenDBConnection("PixelAndy.db");
+
+        using SqliteDataReader reader = dbManager.ExecuteParamQueryReader(
+            $@"SELECT UserID FROM User WHERE UserName = $name;",
+            new Dictionary<string, object> {
+                { "$name", name }
+            }
+        );
+
+        int userID = 0;
+
+        if (!reader.Read()) {
+            using SqliteDataReader insertReader = dbManager.ExecuteParamQueryReader(
+                $@"INSERT INTO User (UserName) VALUES ($name);
+                   SELECT last_insert_rowid();",
+                new Dictionary<string, object> {
+                    { "$name", name }
+                }
+            );
+
+            if (insertReader.Read()) {
+                userID = insertReader.GetInt32(0);
+            }
+        } else {
+            userID = reader.GetInt32(0);
+        }
+
+        _gameData.UserID = userID;
+        _gameData.UserName = name;
+
+        UIContainer uiContainer = UIManager.GetInstance();
+        uiContainer.ToggleUIElement(UIType.LevelSelection);
     }
 
     private void QuitButtonPressed() {
@@ -90,24 +142,5 @@ public class MainMenuSetup : MonoBehaviour {
         #endif
 
         Application.Quit(); // Exit in production.
-    }
-
-    // BAD, move this back into DB manager, can execute every time a connection is open (not too expensive).
-    private void InitDB() {
-        DBManager dbManager = DBManager.GetInstance();
-        dbManager.OpenDBConnection(DBName: "PixelAndy.db");
-
-        dbManager.ExecuteParamQueryNonReader($@"CREATE TABLE IF NOT EXISTS User (UserID INTEGER PRIMARY KEY NOT NULL, UserName VARCHAR(10) NOT NULL);");
-        dbManager.ExecuteParamQueryNonReader(
-            $@"CREATE TABLE IF NOT EXISTS UserScore (" + 
-                "UserScoreID INTEGER PRIMARY KEY NOT NULL," +
-                "UserID INT NOT NULL," +
-                "LevelID INT NOT NULL," +
-                "Score INT NOT NULL," +
-                "CONSTRAINT FK_UserScore_UserID FOREIGN KEY (UserID) REFERENCES User(UserID)" +
-              ");"
-        );
-
-        dbManager.CloseDBConnection();
     }
 }

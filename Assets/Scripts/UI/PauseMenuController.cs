@@ -29,6 +29,7 @@ public class PauseMenuController : MonoBehaviour {
 
     private void CloseWindow() {
         UIManager.GetInstance().ToggleUIElement(UIType.PauseMenu);
+        Time.timeScale = 1;
     }
 
     private void ReturnToMainMenu() {

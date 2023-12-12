@@ -32,6 +32,8 @@ public class DBManager : MonoBehaviour {
     public void OpenDBConnection(string DBName) {
         Connection = new SqliteConnection($"Data Source={DBName}");
         Connection.Open();
+
+        InitDB();
     }
 
     public void CloseDBConnection() {
@@ -39,7 +41,7 @@ public class DBManager : MonoBehaviour {
     }
 
     // Specific to CREATE/DROP.
-    public int ExecuteParamQueryNonReader(string sql, Dictionary<string, string> sqlParams = null) {
+    public int ExecuteParamQueryNonReader(string sql, Dictionary<string, object> sqlParams = null) {
         int affectedRows = 0;
 
         if (Connection != null && Connection.State == ConnectionState.Open) {
@@ -48,8 +50,8 @@ public class DBManager : MonoBehaviour {
 
             // Make terse using command.Parameters.AddRange().
             if (sqlParams != null) {
-                foreach (KeyValuePair<string, string> param in sqlParams) {
-                    command.Parameters.Add(new SqliteParameter(param.Key, param.Value));
+                foreach (KeyValuePair<string, object> param in sqlParams) {
+                    command.Parameters.AddWithValue(param.Key, param.Value);
                 }
             }
 
@@ -84,5 +86,18 @@ public class DBManager : MonoBehaviour {
             Destroy(_instance.gameObject);
             _instance = null;
         }
+    }
+
+    private void InitDB() {
+        ExecuteParamQueryNonReader($@"CREATE TABLE IF NOT EXISTS User (UserID INTEGER PRIMARY KEY NOT NULL, UserName VARCHAR(10) NOT NULL);");
+        ExecuteParamQueryNonReader(
+            $@"CREATE TABLE IF NOT EXISTS UserScore (" +
+                "UserScoreID INTEGER PRIMARY KEY NOT NULL," +
+                "UserID INT NOT NULL," +
+                "LevelID INT NOT NULL," +
+                "Score INT NOT NULL," +
+                "CONSTRAINT FK_UserScore_UserID FOREIGN KEY (UserID) REFERENCES User(UserID)" +
+              ");"
+        );
     }
 }

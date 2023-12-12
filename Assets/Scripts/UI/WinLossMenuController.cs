@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
@@ -21,12 +22,17 @@ public class WinLossMenuController : MonoBehaviour {
         UIContainer uiContainer = UIManager.GetInstance();
 
         _levelsButton.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.LevelSelection);
-        _leaderButton.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.Leaderboard);
+        _leaderButton.clickable.clicked += InvokeLeaderboard;
         _menuButton.clickable.clicked += ReturnToMainMenu;
 
         _gameData = GameDataManager.GetInstance();
         _gameData.DataUpdated += RefreshBoundData;
         RefreshBoundData(); // Must call once manually so data is set before pause menu opened.
+    }
+
+    private void InvokeLeaderboard() {
+        _gameData.LeaderboardIndex = int.Parse(Regex.Match(SceneManager.GetActiveScene().name, @"[0-9]").Value) - 1;
+        UIManager.GetInstance().ToggleUIElement(UIType.Leaderboard);
     }
 
     private void ReturnToMainMenu() {

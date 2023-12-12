@@ -226,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     // when running into objects
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other) 
     {
         // if it's into enemy, reduce available lives 
         if (other.gameObject.tag == "Enemy")
@@ -254,6 +254,11 @@ public class PlayerMovement : MonoBehaviour
             other.gameObject.SetActive(false);  // deactivate the collectable 
             DynamicGameData gameData = GameDataManager.GetInstance();
             gameData.CollectiblesFound = tabulator.Collect;
+        }
+
+        // REMOVE ME!
+        if (other.gameObject.tag == "Portal") {
+            tabulator.Win = true;
         }
     }
 }

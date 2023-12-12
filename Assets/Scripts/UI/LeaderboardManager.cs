@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Playables;
 using UnityEngine.Profiling;
 using UnityEngine.UIElements;
 
@@ -12,8 +13,10 @@ public class LeaderboardManager : MonoBehaviour {
     private Button _exitButton;
     private DropdownField _levelSeclectorDropdown;
     private ListView _list;
+    private DynamicGameData _gameData;
 
     void Start() {
+        _gameData = GameDataManager.GetInstance();
         VisualElement root = this.GetComponent<UIDocument>().rootVisualElement;
         _exitButton = root.Q<Button>("exit-btn");
         _levelSeclectorDropdown = root.Q<DropdownField>("level-select");
@@ -27,6 +30,8 @@ public class LeaderboardManager : MonoBehaviour {
         });
 
         InitLevelSelectDropdown();
+
+        _gameData.LeaderIndexUpdated += ReinitLevelDropdown;
     }
 
     private void ExitButtonPressed() {
@@ -42,8 +47,9 @@ public class LeaderboardManager : MonoBehaviour {
         // This ensures something is present before the user even opens up leaderboard.
     }
 
-    public void ReinitLevelDropdown() {
-        _levelSeclectorDropdown.index = 0;
+    public void ReinitLevelDropdown() { 
+        _levelSeclectorDropdown.index = 99;
+        _levelSeclectorDropdown.index = _gameData.LeaderboardIndex;
     }
 
     private void OnDropdownValueChange(ChangeEvent<string> evt) {
@@ -54,7 +60,7 @@ public class LeaderboardManager : MonoBehaviour {
         try {
             using SqliteDataReader reader = dbManager.ExecuteParamQueryReader(
                 @"SELECT U.UserName, US.Score FROM User U INNER JOIN UserScore US ON US.UserID = U.UserID WHERE US.LevelID = $LevelID ORDER BY US.Score DESC;",
-                new Dictionary<string, object>() { { "$LevelID", Regex.Match(evt.newValue, @"[0-9]+").Value } }
+                new Dictionary<string, object>() { { "$LevelID", Regex.Match(evt.newValue, @"[0-9]").Value } }
             );
 
             while (reader.Read()) {
