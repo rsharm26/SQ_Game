@@ -120,6 +120,7 @@ public class Tabulator : MonoBehaviour
             gameData.Win = Win;
             UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
             Time.timeScale = 0;
+            shouldCheckWinOrLoss = false; // Must set to false otherwise the menu will constantly redraw itself.
 
             if (Win) 
             {
