@@ -87,6 +87,8 @@ public class PatrolEnemy : MonoBehaviour
         Function: Idle() 
         Description: This co-routine is called upon a patrolling enemy reaching an end point.  It begin with setting enemy's speed to zero and 
                     starting the idle animation,  then it will wait for an assigned duration, signaling idle is complete. 
+        Parameters:    n/a 
+        Returns:       n/a 
     */
     IEnumerator Idle()
     {
@@ -99,9 +101,12 @@ public class PatrolEnemy : MonoBehaviour
         isIdleComplete = true; 
     }
 
+
     /*  
         Function: Flip() 
         Description: This function turns the animation 180 degrees on the X-axis. 
+        Parameters:    n/a 
+        Returns:       n/a 
     */
     private void Flip()
     {

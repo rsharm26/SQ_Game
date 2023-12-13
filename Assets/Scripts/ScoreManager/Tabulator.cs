@@ -111,6 +111,8 @@ public class Tabulator : MonoBehaviour
         Description:    This function is called per frame and determine whether any winning or losing condition has been met. 
                         In the case of lives has ran out, time has ran out,  timescale will be set to 0 to retain the current time record. 
                         In the case of winning, the current overall score will be updated to the game's database. 
+        Parameters:    n/a 
+        Returns:       n/a 
     */
     private void checkWinOrLoss() {
         if (Win || lives == 0 || elapsedTime >= allowedTime) 

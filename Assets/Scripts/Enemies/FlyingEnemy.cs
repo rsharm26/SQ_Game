@@ -64,6 +64,8 @@ public class FlyingEnemy : MonoBehaviour
     /*  
         Function: Chase() 
         Description: This function moves the enemy towards the player, indicate enemy is not at origin, and flips the animation as needed.
+        Parameters:    n/a 
+        Returns:       n/a 
     */
     private void Chase()
     {
@@ -76,6 +78,8 @@ public class FlyingEnemy : MonoBehaviour
     /*
         Function: Turn() 
         Description: This function updates the sprite's direction based on player's relative X position to the enemy. 
+        Parameters:    n/a 
+        Returns:       n/a 
     */
     private void Turn()
     {
@@ -87,6 +91,8 @@ public class FlyingEnemy : MonoBehaviour
         Function: Return() 
         Description: This function returns the enemy to the origin, once enemy has arrived, it will set atOrigin to true, and animation
                      back to the dormant, hibernating one. 
+        Parameters:    n/a 
+        Returns:       n/a 
     */
     private void Return()
     {
@@ -104,7 +110,9 @@ public class FlyingEnemy : MonoBehaviour
 
     /*  
         Function: Flip() 
-        Description: This function turns the animation 180 degrees on the X-axis. 
+        Description: This function turns the animation 180 degrees on the X-axis.
+        Parameters:    n/a 
+        Returns:       n/a  
     */
     private void Flip()
     {

@@ -8,14 +8,12 @@ using UnityEngine;
 */
 public class CheckPoint : MonoBehaviour
 {
-    /*
-    *	METHOD          : OnTriggerEnter2D() 
-    *	DESCRIPTION		:
-    *		This method detects when player has encountered a checkpiont, and updates the player's respawn point to the latest 
-    *       check point that they have encountered. 
-    *	PARAMETERS      :     
-    *       Collision2D other: any object that has collided with the checkpoint trigger. 
-    *	RETURNS			:           N/A 
+    /*  
+        Function: OnTriggerEnter2D() 
+        Description: This method detects when player has encountered a checkpiont, and updates the player's respawn point to the latest 
+                    check point that they have encountered.  
+        Parameters:    Collision2D other: any object that has collided with the checkpoint trigger. 
+        Returns:       n/a 
     */
     private void OnTriggerEnter2D(Collider2D other)
     {

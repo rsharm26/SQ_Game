@@ -8,7 +8,7 @@ using UnityEngine;
 */
 public class ChaseTriggerControl : MonoBehaviour
 {
-    [SerializeField] FlyingEnemy[] enemyArray; 
+    [SerializeField] FlyingEnemy[] enemyArray; // an array that contains any number of flyenemy game objects. 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
