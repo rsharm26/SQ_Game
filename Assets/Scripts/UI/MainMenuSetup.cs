@@ -1,17 +1,37 @@
-using Mono.Data.Sqlite;
 using System.Collections;
 using System.Collections.Generic;
+/* Filename: MainMenuSetup.cs
+ * Project: SQ Term Project PixelAndysAdventure
+ * By: Rohin Sharma
+ * Date: December 13, 2023
+ * Description: This file houses a monobehavior object that is responsible for managing the main menu overlay.
+                Note this is different from every other UI element as it builds itself completely from code.
+                Did this as a test and because main menu is static.
+ */
+using Mono.Data.Sqlite;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/*
+ * Class: MainMenuSetup.
+ * Purpose: This class is the code-behind for the main menu overlay.
+            It builds itself via code.
+ */
 public class MainMenuSetup : MonoBehaviour {
-    [SerializeField] private UIDocument _document;
-    [SerializeField] private StyleSheet _styleSheet;
-    DynamicGameData _gameData;
+    // Constants.
+    private const int kMaxNameLength = 10;
 
+    // Attributes.
+    [SerializeField] private UIDocument _document; // Expose a basically empty UI document (canvas).
+    [SerializeField] private StyleSheet _styleSheet; // Stylesheet to use.
+    DynamicGameData _gameData; // Scriptable DTO.
+
+    // This method is included by default in Unity, executes at the start of an object's lifetime (first frame).
+    // Treat this like a constructor.
     private void Start() {
         _gameData = GameDataManager.GetInstance();
         VisualElement root = _document.rootVisualElement; // UXML (cavnas that you can throw elements on).
+
         root.Clear(); // Clear/re-draw for onvalidate purposes.
         root.styleSheets.Add(_styleSheet);
 
@@ -27,14 +47,14 @@ public class MainMenuSetup : MonoBehaviour {
 
         // Textbox for user's name.
         TextField userNameInput = Create<TextField>("user-name-input");
-        userNameInput.maxLength = 10;
+        userNameInput.maxLength = kMaxNameLength;
         userNameInput.label = "Enter your name: ";
-        userNameInput.value = _gameData.UserName;
+        userNameInput.value = _gameData.UserName; // Get cached name if possible.
 
         // Button array.
         Button playBtn = Create<Button>("play-btn");
         playBtn.text = "PLAY";
-        playBtn.SetEnabled(!string.IsNullOrEmpty(_gameData.UserName)); // A bool for active player would be better.
+        playBtn.SetEnabled(!string.IsNullOrEmpty(_gameData.UserName)); // A bool for active player would be better, todo in future.
 
         Button leaderBtn = Create<Button>("leader-btn");
         leaderBtn.text = "LEADERBOARD";
@@ -73,30 +93,63 @@ public class MainMenuSetup : MonoBehaviour {
         settingsBtn.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.Settings);
         quitBtn.clickable.clicked += QuitButtonPressed;
 
+        // Event specific to validating user name entry.
         userNameInput.RegisterValueChangedCallback((evt) => OnTextFieldValueChanged(evt));
     }
 
-    // Helpers to create visual elements with class name.
+    /*
+     * Method: Create() -- Method with 1 parameter.
+     * Description: This method is called as a helper to create a visual element with a specific class.
+     * Parameters: string className: the class name to use (for USS).
+     * Outputs: Nothing.
+     * Return Values: a VisualElement specified by the caller.
+     * Extra Notes: VisualElement is the generic class for Button, Label, List, etc. thus is encapsulates most elements.
+     */
     private VisualElement Create(string className) {
         return Create<VisualElement>(className);
     }
 
+    /*
+     * Method: Create<T>() -- Template method with 1 parameter.
+     * Description: This method is called as a helper to create a visual element of a specific type with a specific class.
+     * Parameters: string className: the class name to use (for USS).
+     * Outputs: Nothing.
+     * Return Values: a VisualElement of T (sub-type) specified by the caller.
+     * Extra Notes: Same as Create() above, logic here is for any generic visual container (basically a div) we can use Create() above.
+                    Else, use this one for the exact visual element required.
+     */
     private T Create<T>(string className) where T : VisualElement, new() {
         T element = new();
         element.AddToClassList(className);
         return element;
     }
 
+    /*
+     * Method: OnTextFieldValueChanged() -- Method with 1 parameter.
+     * Description: This event is called whenever the user name text input box changes.
+     * Parameters: ChangeEvent<string> evt: an event that contains old/new values of the changed element (string values).
+     * Outputs: Nothing.
+     * Return Values: Nothing.
+     */
     private void OnTextFieldValueChanged(ChangeEvent<string> evt) {
         VisualElement root = _document.rootVisualElement;
 
+        // Only need to ensure it is not empty.
         if (evt.newValue.Trim().Length != 0) {
-            root.Q<Button>(className: "play-btn")?.SetEnabled(true);    
+            root.Q<Button>(className: "play-btn")?.SetEnabled(true);
         } else {
             root.Q<Button>(className: "play-btn")?.SetEnabled(false);
         }
     }
 
+    /*
+     * Method: PlayButtonPressed() -- Method with no parameters.
+     * Description: This method is called whenever the play button is pressed.
+                    It basically gets a handle on the user's existing DB userID, else creates one for them.
+     * Parameters: None.
+     * Outputs: Nothing.
+     * Return Values: Nothing.
+     */
     private void PlayButtonPressed() {
         VisualElement root = _document.rootVisualElement;
         string name = root.Q<TextField>(className: "user-name-input").text.Trim();
@@ -104,38 +157,56 @@ public class MainMenuSetup : MonoBehaviour {
         DBManager dbManager = DBManager.GetInstance();
         dbManager.OpenDBConnection("PixelAndy.db");
 
-        using SqliteDataReader reader = dbManager.ExecuteParamQueryReader(
-            $@"SELECT UserID FROM User WHERE UserName = $name;",
-            new Dictionary<string, object> {
-                { "$name", name }
-            }
-        );
-
-        int userID = 0;
-
-        if (!reader.Read()) {
-            using SqliteDataReader insertReader = dbManager.ExecuteParamQueryReader(
-                $@"INSERT INTO User (UserName) VALUES ($name);
-                   SELECT last_insert_rowid();",
+        // Begin by checking if the user already exists in the User table.
+        try {
+            using SqliteDataReader reader = dbManager.ExecuteParamQueryReader(
+                $@"SELECT UserID FROM User WHERE UserName = $name;",
                 new Dictionary<string, object> {
                     { "$name", name }
                 }
             );
 
-            if (insertReader.Read()) {
-                userID = insertReader.GetInt32(0);
+            int userID = 0;
+
+            // If they do not, add them into the table and get the userID back.
+            // Note that userID is PK + AUTO_INCREMENT, best to read it back.
+            if (!reader.Read()) {
+                using SqliteDataReader insertReader = dbManager.ExecuteParamQueryReader(
+                    $@"INSERT INTO User (UserName) VALUES ($name); 
+                    SELECT last_insert_rowid();",
+                    new Dictionary<string, object> {
+                        { "$name", name }
+                    }
+                );
+
+                // If something came back from last_insert_rowid(), get it and set it as userID.
+                if (insertReader.Read()) {
+                    userID = insertReader.GetInt32(0);
+                }
+            } else {
+                // If they exist, just get their ID.
+                userID = reader.GetInt32(0);
             }
-        } else {
-            userID = reader.GetInt32(0);
+
+            _gameData.UserID = userID;
+            _gameData.UserName = name;
+
+            UIContainer uiContainer = UIManager.GetInstance();
+            uiContainer.ToggleUIElement(UIType.LevelSelection);
+        } catch (SqliteException se) {
+            Debug.Log(se.Message);
         }
-
-        _gameData.UserID = userID;
-        _gameData.UserName = name;
-
-        UIContainer uiContainer = UIManager.GetInstance();
-        uiContainer.ToggleUIElement(UIType.LevelSelection);
     }
 
+
+    /*
+     * Method: QuitButtonPressed() -- Method with no parameters.
+     * Description: This method is called whenever the quit button is pressed.
+                    It simply exits the game.
+     * Parameters: None.
+     * Outputs: Nothing.
+     * Return Values: Nothing.
+     */
     private void QuitButtonPressed() {
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false; // Exit in development.
