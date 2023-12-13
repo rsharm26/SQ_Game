@@ -1,8 +1,10 @@
 using Mono.Data.Sqlite;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Playables;
@@ -12,7 +14,7 @@ using UnityEngine.UIElements;
 public class LeaderboardManager : MonoBehaviour {
     private Button _exitButton;
     private DropdownField _levelSeclectorDropdown;
-    private ListView _list;
+    private ScrollView _list;
     private DynamicGameData _gameData;
 
     void Start() {
@@ -20,7 +22,7 @@ public class LeaderboardManager : MonoBehaviour {
         VisualElement root = this.GetComponent<UIDocument>().rootVisualElement;
         _exitButton = root.Q<Button>("exit-btn");
         _levelSeclectorDropdown = root.Q<DropdownField>("level-select");
-        _list = root.Q<ListView>("records-list");
+        _list = root.Q<ScrollView>("records-list");
 
         _exitButton.clickable.clicked += ExitButtonPressed;
 
@@ -47,13 +49,15 @@ public class LeaderboardManager : MonoBehaviour {
         // This ensures something is present before the user even opens up leaderboard.
     }
 
-    public void ReinitLevelDropdown() { 
+    public void ReinitLevelDropdown() {
         _levelSeclectorDropdown.index = 99;
         _levelSeclectorDropdown.index = _gameData.LeaderboardIndex;
     }
 
     private void OnDropdownValueChange(ChangeEvent<string> evt) {
-        List<string> records = new List<string>();
+        _list.Clear();
+
+        List<Tuple<string, string>> records = new List<Tuple<string, string>>();
         DBManager dbManager = DBManager.GetInstance();
         dbManager.OpenDBConnection(DBName: "PixelAndy.db");
 
@@ -67,7 +71,7 @@ public class LeaderboardManager : MonoBehaviour {
                 string name = reader.GetString(0);
                 int score = reader.GetInt32(1);
 
-                records.Add($"{name} --> {score}");
+                records.Add(new Tuple<string, string>(name, score.ToString()));
             }
 
         } catch (SqliteException se) {
@@ -75,7 +79,29 @@ public class LeaderboardManager : MonoBehaviour {
             records.Clear();
         }
 
-        _list.itemsSource = records.Count == 0 ? new List<string>() { "No records found..." } : records;
+        VisualElement listRow = new VisualElement();
+        listRow.AddToClassList("records-list-header-row");
+
+        if (records.Count == 0) {
+            listRow.Add(new Label("No records found"));
+
+            _list.Add(listRow);
+        } else {
+            listRow.Add(new Label("<u>Name</u>"));
+            listRow.Add(new Label("<u>Score</u>"));
+            _list.Add(listRow);
+
+            foreach(Tuple<string, string> record in records) {
+                listRow = new VisualElement();
+                listRow.AddToClassList("records-list-regular-row");
+                
+                listRow.Add(new Label($"{record.Item1}"));
+                listRow.Add(new Label($"{record.Item2}"));
+
+                _list.Add(listRow);                    
+            }
+        }
+
         dbManager.CloseDBConnection();
     }
 }

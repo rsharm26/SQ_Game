@@ -27,8 +27,51 @@
     font-size: 64px;
     -unity-font-style: bold;
     color: white;
-    margin-top: 10px;
+    margin-top: 5%;
     -unity-font-definition: url('project:/Assets/Font/Electronic Highway Sign.TTF');
+}
+
+#records-list-cell {
+    height: 60%;
+    width: auto;
+    align-items: center;
+    bottom: 20px;
+}
+
+#records-list-header {
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: rgba(202, 189, 62, 255);
+    -unity-font-definition: url('project:/Assets/Font/PressStart2P-Regular.TTF');
+    bottom: 15px;
+}
+
+#records-list {
+    background-color: white;
+    border-radius: 15px;
+    flex-grow: 1;
+    flex-direction: row;
+    max-width: 80%;
+    max-height: 80%;
+    -unity-font-definition: url('project:/Assets/Font/Baskic8.OTF');
+}
+
+#records-list > VisualElement {
+    flex-direction: row;
+    justify-content: space-around;
+    top: 5px;
+}
+
+.records-list-header-row {
+    font-size: 36px;
+    -unity-font-style: bold;
+    height: 50%;
+}
+
+.records-list-regular-row > Label {
+    min-width: 35%;
+    -unity-text-align: middle-center;
+    font-size: 24px;
 }
 
 #options-box {
@@ -40,7 +83,7 @@
     background-image: url('project:/Assets/CustomSprites/FinalSprites/SettingsWindow.png');
 }
 
-#options-box DropdownField {
+#level-select {
     width: 40%;
     margin: auto;
     font-size: 48px;
@@ -49,28 +92,17 @@
     align-items: center;
     margin: auto;
     -unity-font-definition: url('project:/Assets/Font/PressStart2P-Regular.TTF');
+    bottom: 10px;
 }
 
-DropdownField > Label {
+#level-select > Label {
     margin-right: 5%;
 }
 
-DropdownField > VisualElement {
+#level-select > VisualElement {
     font-size: 22px;
     color: black;
     -unity-font-style: bold;
-}
-
-#options-box ListView {
-    background-color: white;
-    border-radius: 15px;
-    flex-grow: 1;
-    flex-direction: row;
-    max-width: 80%;
-    max-height: 40%;
-    margin: auto auto 5% auto;
-    -unity-font-definition: url('project:/Assets/Font/Baskic8.OTF');
-    padding-top: 1%;
 }
 
 #control-box {

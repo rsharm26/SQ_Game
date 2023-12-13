@@ -4,26 +4,13 @@ using System.Data;
 using UnityEngine;
 
 // Singleton.
-public class DBManager : MonoBehaviour {
+public class DBManager {
     private static DBManager _instance;
     public SqliteConnection Connection { get; private set; } // ADJUST to attr later.
 
     public static DBManager GetInstance() {
-        if (_instance != null) {
-            return _instance;
-        }
-
-        // Does the object containing the DB manager exist?
-        _instance = FindObjectOfType<DBManager>();
-
         if (_instance == null) {
-            // Basically, make a gameobject and attach this script to it, store a reference to the added component.
-            // Do this as it styncs with Unity lifecycle methods (like OnDestroy()), although not entirely necessary.
-            GameObject DBSingelton = new("DBManager");
-            _instance = DBSingelton.AddComponent<DBManager>();
-            #if !UNITY_INCLUDE_TESTS
-            DontDestroyOnLoad(DBSingelton); // Persistent across scenes.
-            #endif
+            return _instance = new DBManager();
         }
 
         return _instance;
@@ -78,14 +65,6 @@ public class DBManager : MonoBehaviour {
         }
 
         return null;
-    }
-
-    // Remove gameobject and "reset" singleton.
-    private void OnDestroy() {
-        if (_instance != null) {
-            Destroy(_instance.gameObject);
-            _instance = null;
-        }
     }
 
     private void InitDB() {
