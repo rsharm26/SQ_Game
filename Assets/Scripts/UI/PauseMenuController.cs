@@ -69,8 +69,7 @@ public class PauseMenuController : MonoBehaviour {
      * Return Values: Nothing.
      */
     private void ReturnToMainMenu() {
-        UIManager.GetInstance().CloseAllActiveElements();
-        SceneManager.LoadScene("MainMenu");
+        UIManager.GetInstance().ToggleUIElement(UIType.InLevelExit);
     }
 
     /*
