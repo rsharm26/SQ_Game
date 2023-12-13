@@ -215,6 +215,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation.SetInteger("state", (int)state); 
     }
 
+
     /*
     *	METHOD          : IsGrounded()
     *	DESCRIPTION		:
@@ -234,7 +235,15 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    // when running into objects
+    /*
+    *	METHOD          : OnCollisionEnter2D() 
+    *	DESCRIPTION		:
+    *		This method contains collision-related logic.  When player encounters an enemy, their lives should decrement, and get reset to the 
+    *       nearest checkpoint that player has encountered.  If player encounters portal, level is won. 
+    *	PARAMETERS:
+    *		void               :    Collision2D other: the other object that player has collided into. 
+    *	RETURNS			:           N/A 
+    */
     private void OnCollisionEnter2D(Collision2D other) 
     {
         // if it's into enemy, reduce available lives 
@@ -242,9 +251,10 @@ public class PlayerMovement : MonoBehaviour
         {
             deathEffect.Play();
             tabulator.Lives -= 1;           // update remaning lives in tabulator 
-            Debug.Log("tabulator.lives: " + tabulator.Lives);
+            
             playerBody.position = RespawnPoint;  // reset player back to starting position or last checkpoint encountered
-            DynamicGameData gameData = GameDataManager.GetInstance();
+
+            DynamicGameData gameData = GameDataManager.GetInstance();   // updating gameData DTO.
             gameData.LivesRemaining = tabulator.Lives;
         }
 
@@ -257,11 +267,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    /*
+    *	METHOD          : OnTriggerEnter2D() 
+    *	DESCRIPTION		:
+    *		This method is used for collectable detection.  When player runs into a gameobject that does not have a rigid body and set as trigger 
+    *       this method will be called.  When a collectable is encountered, tabulator's collect score will increment, and the collectable will be 
+    *       deactivated as it is consumed. 
+    *	PARAMETERS:
+    *		void               :    Collider2D other: the collectable player has encountered. 
+    *	RETURNS			:           N/A 
+    */
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Collectable")
         {
-            itemCollectEffect.Play();
+            itemCollectEffect.Play();   // play collect sound. 
             tabulator.Collect++; 
             other.gameObject.SetActive(false);  // deactivate the collectable 
             DynamicGameData gameData = GameDataManager.GetInstance();

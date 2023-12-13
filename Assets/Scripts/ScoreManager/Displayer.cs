@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/*
+This is the prototype for in-level displayer, for final UI overlay please refer to the UI folder. 
+*/
 public class Displayer : MonoBehaviour
 {   
     public TextMeshProUGUI livesText; 
