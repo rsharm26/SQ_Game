@@ -6,7 +6,7 @@
             <ui:DropdownField label="Screen Resolution" index="0" name="screen-res-dropdown" />
             <ui:DropdownField label="Display Mode" index="0" name="display-mode-dropdown" />
             <ui:DropdownField label="Graphics Quality" index="0" name="graphics-quality-dropdown" />
-            <ui:SliderInt picking-mode="Ignore" label="Volume" value="100" high-value="100" show-input-field="true" inverted="false" name="volume-slider" style="width: 70%; height: auto; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;" />
+            <ui:Slider picking-mode="Ignore" label="Volume" value="100" high-value="100" show-input-field="false" inverted="false" name="volume-slider" />
         </ui:VisualElement>
         <ui:VisualElement name="control-box">
             <ui:Button text="Cancel" display-tooltip-when-elided="true" name="cancel-btn" />

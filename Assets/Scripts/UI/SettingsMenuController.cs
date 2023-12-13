@@ -12,6 +12,7 @@ public class SettingsMenuController : MonoBehaviour {
     private DropdownField _screenResDropdown;
     private DropdownField _displayModeDropdown;
     private DropdownField _graphicsQualityDropdown;
+    private Slider _volumeSlider;
 
     // Start is called before the first frame update
     void Start() {
@@ -21,6 +22,7 @@ public class SettingsMenuController : MonoBehaviour {
         _screenResDropdown = root.Q<DropdownField>("screen-res-dropdown");
         _displayModeDropdown = root.Q<DropdownField>("display-mode-dropdown");
         _graphicsQualityDropdown = root.Q<DropdownField>("graphics-quality-dropdown");
+        _volumeSlider = root.Q<Slider>("volume-slider");
 
         _cancelButton.clickable.clicked += CancelButtonPressed;
         _applyButton.clickable.clicked += ApplyButtonPressed;
@@ -41,6 +43,7 @@ public class SettingsMenuController : MonoBehaviour {
         Resolution desiredRes = Screen.resolutions[_screenResDropdown.index];
         Screen.SetResolution(desiredRes.width, desiredRes.height, (FullScreenMode)Enum.Parse(typeof(FullScreenMode), _displayModeDropdown.value));
         QualitySettings.SetQualityLevel(_graphicsQualityDropdown.index, true);
+        MusicManager.GetInstance().AdjustVolume(_volumeSlider.value / 100);
     }
 
     private void InitResolutionDropdown() {
