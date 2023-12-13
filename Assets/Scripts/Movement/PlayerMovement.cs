@@ -267,10 +267,5 @@ public class PlayerMovement : MonoBehaviour
             DynamicGameData gameData = GameDataManager.GetInstance();
             gameData.CollectiblesFound = tabulator.Collect;
         }
-
-        // REMOVE ME!
-        if (other.gameObject.tag == "Portal") {
-            tabulator.Win = true;
-        }
     }
 }

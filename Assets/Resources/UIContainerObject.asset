@@ -25,4 +25,3 @@ MonoBehaviour:
     uiElement: {fileID: 3905397471301923225, guid: 034bed9957ad79648b45a189002ad1ee, type: 3}
   - uiType: 5
     uiElement: {fileID: 2027462422438978731, guid: 3d7c3fb042998454e9ef89781fc02521, type: 3}
-  _sortingOrder: 10

@@ -65,13 +65,14 @@
 .records-list-header-row {
     font-size: 36px;
     -unity-font-style: bold;
-    height: 50%;
+    height: auto;
 }
 
 .records-list-regular-row > Label {
     min-width: 35%;
     -unity-text-align: middle-center;
     font-size: 24px;
+    height: auto;
 }
 
 #options-box {
