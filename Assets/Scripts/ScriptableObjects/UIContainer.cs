@@ -5,6 +5,7 @@
  * Description: This file houses a scriptable object used to store session-wide UI elements.
                 Note this is admittedly a strange way to use scriptable object, though highly convenient.
                 It also makes sense as UI elements should persist across scenes/within a session.
+                Note the actual scriptable component object lives in Resources.
  */
 using System;
 using System.Collections.Generic;

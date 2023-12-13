@@ -1,4 +1,4 @@
-/* Filename: LevelSelectorManager.cs
+/* Filename: LevelSelectorController.cs
  * Project: SQ Term Project PixelAndysAdventure
  * By: Rohin Sharma
  * Date: December 13, 2023
@@ -19,11 +19,11 @@ using UnityEngine.UIElements;
 
 
 /*  
- * Class: LevelSelectorManager.
+ * Class: LevelSelectorController.
  * Purpose: This class is the code-behind for the level selection view.
             It is relatively simple since level selection is static for now.
  */
-public class LevelSelectorManager : MonoBehaviour {
+public class LevelSelectorController : MonoBehaviour {
     // Attributes.
     // Buttons for now.
     private Button _exitButton;
