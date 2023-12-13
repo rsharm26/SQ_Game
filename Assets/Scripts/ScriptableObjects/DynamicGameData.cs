@@ -4,6 +4,7 @@
  * Date: December 13, 2023
  * Description: This file houses a scriptable object used to store session-wide data relating to ...
                 ... player data (lives, collectibles found, etc.) alongside user-level DB data and a settings option.
+                Note the actual scriptable component object lives in Resources.
  */
 using System;
 using System.Collections.Generic;

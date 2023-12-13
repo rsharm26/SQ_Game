@@ -3,6 +3,7 @@
  * By: Rohin Sharma
  * Date: December 13, 2023
  * Description: This file houses a scriptable object used to store session-wide data relating to music and its options.
+                Note the actual scriptable component object lives in Resources.
  */
 using System;
 using System.Collections.Generic;
