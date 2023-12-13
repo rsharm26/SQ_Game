@@ -900,6 +900,14 @@ PrefabInstance:
       propertyPath: collectText
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 850787309778794325, guid: 7be3750c1ff669844a481ff0243918bb, type: 3}
+      propertyPath: lives
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 850787309778794325, guid: 7be3750c1ff669844a481ff0243918bb, type: 3}
+      propertyPath: allowedTime
+      value: 300
+      objectReference: {fileID: 0}
     - target: {fileID: 850787309778794326, guid: 7be3750c1ff669844a481ff0243918bb, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -17769,7 +17777,7 @@ CompositeCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
+  m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
   m_ColliderPaths:
