@@ -1,0 +1,91 @@
+:root {
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+}
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+#container > VisualElement Label {
+    justify-content: center;
+    align-items: center;
+    -unity-font-definition: url('project://database/Assets/Font/Baskic8.otf?fileID=12800000&guid=07163c2d6fcf47d4b9df1860be43a6ec&type=3#Baskic8');
+}
+
+#options-box {
+    border-width: 0;
+    border-color: white;
+    border-radius: 5px;
+}
+
+#control-box {
+    border-width: 0;
+    border-color: white;
+    border-radius: 5px;
+}
+
+#options-box {
+    flex-direction: column;
+    width: 45%;
+    height: 45%;
+    margin: auto;
+    background-image: url('project://database/Assets/CustomSprites/FinalSprites/SettingsWindow.png?fileID=21300000&guid=b6497e20e9352fc4e81e0ddb0c5ebfd7&type=3#SettingsWindow');
+    justify-content: center;
+    align-items: center;
+}
+
+#confirm-title {
+    -unity-font-definition: url('project:/Assets/Font/PressStart2P-Regular.TTF');
+    font-size: 48px;
+    -unity-font-style: bold;
+    color: rgba(202, 189, 62, 255);
+    top: 35%;
+}
+
+#control-box {
+    flex-direction: row;
+    width: 80%;
+    height: 25%;
+    margin: auto;
+    top: 10%;
+}
+
+#control-box Button {
+    margin: 3% auto;
+    width: 35%;
+    height: 100px;
+    border-width: 1px;
+    border-radius: 10px;
+    border-color: white;
+    transition: 0.1s all;
+    font-size: 42px;
+    color: white;
+    -unity-font-definition: url('project://database/Assets/Font/Essentle4.otf?fileID=12800000&guid=16b92cd1a93d839489ceffb7ca52106a&type=3#Essentle4');
+    -unity-text-align: upper-center;
+}
+
+#yes-btn {
+    background-image: url('project://database/Assets/CustomSprites/FinalSprites/QuitButtonStatic.png?fileID=21300000&guid=be192531e6ea27a4c8a4b192f206032f&type=3#QuitButtonStatic');
+}
+
+#no-btn {
+    background-image: url('project://database/Assets/CustomSprites/FinalSprites/MainMenuButtonStatic.png?fileID=21300000&guid=ca96a72e3457cca40a8ea286c71a7176&type=3#MainMenuButtonStatic');
+}
+
+#control-box Button:hover {
+    scale: 1.05;
+}
+
+#control-box Button:active {
+    scale: 0.95;
+}

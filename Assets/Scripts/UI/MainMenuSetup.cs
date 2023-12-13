@@ -201,19 +201,8 @@ public class MainMenuSetup : MonoBehaviour {
     }
 
 
-    /*
-     * Method: QuitButtonPressed() -- Method with no parameters.
-     * Description: This method is called whenever the quit button is pressed.
-                    It simply exits the game.
-     * Parameters: None.
-     * Outputs: Nothing.
-     * Return Values: Nothing.
-     */
     private void QuitButtonPressed() {
-        #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // Exit in development.
-        #endif
-
-        Application.Quit(); // Exit in production.
+        UIContainer uiContainer = UIManager.GetInstance();
+        uiContainer.ToggleUIElement(UIType.MainMenuExit);
     }
 }

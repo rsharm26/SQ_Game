@@ -1,0 +1,13 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/StyleSheets/ExitConfirmationStyling.uss?fileID=7433441132597879392&amp;guid=6d6b60b37c3b72c4ebe8480331e8b026&amp;type=3#ExitConfirmationStyling" />
+    <ui:VisualElement name="container">
+        <ui:VisualElement name="background" />
+        <ui:VisualElement name="options-box">
+            <ui:Label text="Are you sure?" display-tooltip-when-elided="true" name="confirm-title" />
+            <ui:VisualElement name="control-box">
+                <ui:Button text="No" display-tooltip-when-elided="true" name="no-btn" />
+                <ui:Button text="Yes" display-tooltip-when-elided="true" name="yes-btn" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
