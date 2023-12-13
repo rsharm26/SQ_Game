@@ -1,3 +1,16 @@
+/*
+* FILE				: PlayerMovement.cs
+* PROJECT			: SENG 2020 - Term Project
+* PROGRAMMERS		: Cody Glanville ID: 8864645
+* FIRST VERSION		: October(Generally), 2023
+* DESCRIPTION		:
+*	This file contains the script that will allow the player to move throughout our created game environments. As such, this file will
+*	have methods pertaining to the calculation of velocities in order to move the player and also allow them to jump in the game's stages.
+*	This file also contains the logic relating to the proper sounds being played when the player interacts with other objects in the game
+*	such as enemies, collectables, and traps. Other logic is included to update the created tabulator when the player dies or collects an 
+*	item during their gameplay.
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,16 +50,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]private float jumpForce = 14f;                          // Player Jumping velocity (SerializeField lets us change values in Player itslef)
     [SerializeField]private LayerMask jumpableGround;                       // Determines if the player is touching jumpable ground
 
-    [SerializeField] private AudioSource jumpSoundEffect;
-    [SerializeField] private AudioSource itemCollectEffect;
-    [SerializeField] private AudioSource deathEffect;
-    [SerializeField] private AudioSource winEffect;
+    [SerializeField] private AudioSource jumpSoundEffect;                   // Audio source object that will play for jumping
+    [SerializeField] private AudioSource itemCollectEffect;                 // Audio source object that will play for collecting items
+    [SerializeField] private AudioSource deathEffect;                       // Audio source object that will play upon a player dying
+    [SerializeField] private AudioSource winEffect;                         // Audio source object that will play for a player completing a stage
 
 
     public enum MovementState { idle, running, jumping, falling }           // Enum used to determine the correct state of the movement animation
 
-    private Vector3 playerOrigin;               // record player starting position 
-    public Vector3 RespawnPoint{get; set;}      // property for if player resets to origin or a checkpoint 
+    private Vector3 playerOrigin;               // Record player starting position 
+    public Vector3 RespawnPoint{get; set;}      // Property for if player resets to origin or a checkpoint 
 
     /*
     *	METHOD          : Start()
@@ -234,14 +247,24 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    // when running into objects
+    /*
+    *	METHOD          : OnCollisionEnter2D(Collision2D other)
+    *	DESCRIPTION		:
+    *		This method is used for when the player will interact with other objects in the game. The two if statements in the method regard
+    *		the player interacting with both an enemy (which will reduce its health) and a portal (which acts as the goal for the level). As such, 
+    *		this method will allow for the tabulator to determine life losing and win conditions for the player in the game.
+    *	PARAMETERS:
+    *		Collision2D         :    This will be a separate object other than the player (enemy, etc.)
+    *	RETURNS			:
+    *		void	            :	 Void is used as this method has no return values
+    */
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        // if it's into enemy, reduce available lives 
+        // If the player runs into an enemy, reduce their available lives 
         if (other.gameObject.tag == "Enemy")
         {
             deathEffect.Play();
-            tabulator.Lives -= 1;           // update remaning lives in tabulator 
+            tabulator.Lives -= 1;                // update remaning lives in tabulator 
             Debug.Log("tabulator.lives: " + tabulator.Lives);
             playerBody.position = RespawnPoint;  // reset player back to starting position or last checkpoint encountered
             DynamicGameData gameData = GameDataManager.GetInstance();
@@ -249,7 +272,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        // if arrived at portal, win. 
+        // If the player has reached the portal, they will win the specific level
         if (other.gameObject.tag == "Portal")
         {
             winEffect.Play();
@@ -257,8 +280,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /*
+    *	METHOD          : OnTriggerEnter2D(Collider2D other)
+    *	DESCRIPTION		:
+    *		This method is used for altering the tabulator when a player has encountered a collectable object in the game. As such, upon
+    *		the player interacting with a collectable (running into / colliding with it) the tabulator will be updated, the proper sound
+    *		will be played for when a collectable is gathered, and the collectable itself will be deactived in order for the player to not
+    *		encounter it multiple times.
+    *	PARAMETERS:
+    *		Collider2D other    :   This is an object separate from the player 
+    *	RETURNS			:
+    *		void	            :	Void is used as this method has no return values
+    */
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // If the object is a collectable, update the tabulator and play the appropriate sound
         if (other.gameObject.tag == "Collectable")
         {
             itemCollectEffect.Play();
