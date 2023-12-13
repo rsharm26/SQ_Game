@@ -49,7 +49,7 @@ public class LeaderboardManager : MonoBehaviour {
     }
 
     public void ReinitLevelDropdown() {
-        _levelSeclectorDropdown.index = 99;
+        _levelSeclectorDropdown.index = _levelSeclectorDropdown.index + 1;
         _levelSeclectorDropdown.index = _gameData.LeaderboardIndex;
     }
 
@@ -62,7 +62,12 @@ public class LeaderboardManager : MonoBehaviour {
 
         try {
             using SqliteDataReader reader = dbManager.ExecuteParamQueryReader(
-                @"SELECT U.UserName, US.Score FROM User U INNER JOIN UserScore US ON US.UserID = U.UserID WHERE US.LevelID = $LevelID ORDER BY US.Score DESC;",
+                @"SELECT U.UserName, 
+                US.Score 
+                FROM User U 
+                INNER JOIN UserScore US ON US.UserID = U.UserID WHERE US.LevelID = $LevelID 
+                ORDER BY US.Score DESC 
+                LIMIT 10;",
                 new Dictionary<string, object>() { { "$LevelID", Regex.Match(evt.newValue, @"[0-9]").Value } }
             );
 
