@@ -107,5 +107,6 @@ public enum UIType {
     WinLossMenu,
     InLevelOverlay,
     MainMenuExit,
-    InLevelExit
+    InLevelExit,
+    ApplySettingsConfirmation
 }

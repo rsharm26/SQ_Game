@@ -85,6 +85,8 @@ public class SettingsMenuController : MonoBehaviour {
         PlayerPrefs.SetInt("screenModeIndex", _displayModeDropdown.index);
         PlayerPrefs.SetInt("graphicsIndex", _graphicsQualityDropdown.index);
         PlayerPrefs.SetFloat("volume", _volumeSlider.value);
+
+        UIManager.GetInstance().ToggleUIElement(UIType.ApplySettingsConfirmation);
     }
 
     /*

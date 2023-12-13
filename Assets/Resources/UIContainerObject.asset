@@ -29,3 +29,5 @@ MonoBehaviour:
     uiElement: {fileID: 3739020978228293073, guid: aed462c66de191e4abaf4f208977544e, type: 3}
   - uiType: 7
     uiElement: {fileID: 1537444706162743907, guid: 51a79ed6243c81e44b8adaa0b6ff3cea, type: 3}
+  - uiType: 8
+    uiElement: {fileID: 5751974287106831539, guid: 6194663f4455d0e4faf580cc83ba25f8, type: 3}
