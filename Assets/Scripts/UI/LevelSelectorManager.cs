@@ -29,14 +29,12 @@ public class LevelSelectorManager : MonoBehaviour {
         _level2Button = root.Q<Button>("level2-btn");
         _level3Button = root.Q<Button>("level3-btn");
         _level4Button = root.Q<Button>("level4-btn");
-        _level5Button = root.Q<Button>("level5-btn");
 
         _exitButton.clickable.clicked += CloseWindow;
         _level1Button.clickable.clicked += () => PlayableButtonPressed(_level1Button);
         _level2Button.clickable.clicked += () => PlayableButtonPressed(_level2Button);
         _level3Button.clickable.clicked += () => PlayableButtonPressed(_level3Button);
         _level4Button.clickable.clicked += () => PlayableButtonPressed(_level4Button);
-        _level5Button.clickable.clicked += () => PlayableButtonPressed(_level5Button);
 
         // EditorBuildSettingsScene[] scenes = EditorBuildSettings.scenes;
     }

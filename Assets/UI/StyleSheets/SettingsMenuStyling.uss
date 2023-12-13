@@ -1,7 +1,7 @@
 :root {
     justify-content: center;
     align-items: center;
-    display: none;
+    
 }
 
 #container {
@@ -68,7 +68,7 @@ DropdownField > VisualElement {
     -unity-font-definition: url('project:/Assets/Font/Electronic Highway Sign.TTF');
 }
 
-#options-box SliderInt {
+#options-box Slider {
     width: 70%;
     margin: auto;
     font-size: 42px;
@@ -76,7 +76,7 @@ DropdownField > VisualElement {
     color: white;
 }
 
-SliderInt > VisualElement {
+Slider > VisualElement {
     margin-left: 5%;
     align-items: center;
 }

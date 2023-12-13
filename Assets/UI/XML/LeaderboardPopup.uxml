@@ -1,11 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/_src/UI/StyleSheets/LeaderboardStyling.uss?fileID=7433441132597879392&amp;guid=f3bdd626bd7f60b47978c9a1f61ef04a&amp;type=3#LeaderboardStyling" />
+    <Style src="project://database/Assets/UI/StyleSheets/LeaderboardStyling.uss?fileID=7433441132597879392&amp;guid=f3bdd626bd7f60b47978c9a1f61ef04a&amp;type=3#LeaderboardStyling" />
     <ui:VisualElement name="container">
         <ui:VisualElement name="background" />
         <ui:VisualElement name="options-box">
-            <ui:Label text="High Scores!" display-tooltip-when-elided="true" name="title" style="margin-top: 5%;" />
+            <ui:Label text="High Scores!" display-tooltip-when-elided="true" name="title" />
             <ui:DropdownField name="level-select" index="0" />
-            <ui:ListView focusable="false" show-border="false" name="records-list" reorderable="false" show-add-remove-footer="false" />
+            <ui:VisualElement name="records-list-cell">
+                <ui:Label text="*Top 10" display-tooltip-when-elided="true" name="records-list-header" enable-rich-text="true" />
+                <ui:ScrollView focusable="false" show-border="false" name="records-list" reorderable="false" show-add-remove-footer="false" />
+            </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="control-box">
             <ui:Button text="Exit" display-tooltip-when-elided="true" name="exit-btn" />

@@ -12,6 +12,7 @@ public class SettingsMenuController : MonoBehaviour {
     private DropdownField _screenResDropdown;
     private DropdownField _displayModeDropdown;
     private DropdownField _graphicsQualityDropdown;
+    private Slider _volumeSlider;
 
     // Start is called before the first frame update
     void Start() {
@@ -21,6 +22,7 @@ public class SettingsMenuController : MonoBehaviour {
         _screenResDropdown = root.Q<DropdownField>("screen-res-dropdown");
         _displayModeDropdown = root.Q<DropdownField>("display-mode-dropdown");
         _graphicsQualityDropdown = root.Q<DropdownField>("graphics-quality-dropdown");
+        _volumeSlider = root.Q<Slider>("volume-slider");
 
         _cancelButton.clickable.clicked += CancelButtonPressed;
         _applyButton.clickable.clicked += ApplyButtonPressed;
@@ -31,9 +33,14 @@ public class SettingsMenuController : MonoBehaviour {
         InitResolutionDropdown();
         InitModeDropdown();
         InitGraphicsQualityDropdown();
+        InitVolumeSlider();
     }
 
     private void CancelButtonPressed() {
+        _screenResDropdown.index = PlayerPrefs.GetInt("screenResIndex");
+        _displayModeDropdown.index = PlayerPrefs.GetInt("screenModeIndex");
+        _graphicsQualityDropdown.index = PlayerPrefs.GetInt("graphicsIndex");
+        _volumeSlider.value = PlayerPrefs.GetFloat("volume");
         UIManager.GetInstance().ToggleUIElement(UIType.Settings);
     }
 
@@ -41,6 +48,12 @@ public class SettingsMenuController : MonoBehaviour {
         Resolution desiredRes = Screen.resolutions[_screenResDropdown.index];
         Screen.SetResolution(desiredRes.width, desiredRes.height, (FullScreenMode)Enum.Parse(typeof(FullScreenMode), _displayModeDropdown.value));
         QualitySettings.SetQualityLevel(_graphicsQualityDropdown.index, true);
+        MusicManager.GetInstance().AdjustVolume(_volumeSlider.value / 100);
+
+        PlayerPrefs.SetInt("screenResIndex", _screenResDropdown.index);
+        PlayerPrefs.SetInt("screenModeIndex", _displayModeDropdown.index);
+        PlayerPrefs.SetInt("graphicsIndex", _graphicsQualityDropdown.index);
+        PlayerPrefs.SetFloat("volume", _volumeSlider.value);
     }
 
     private void InitResolutionDropdown() {
@@ -50,6 +63,8 @@ public class SettingsMenuController : MonoBehaviour {
         _screenResDropdown.index = Screen.resolutions
             .Select((res, index) => (res, index)) // Get res + index per each member in Screen.resolutions.
             .First(kv => kv.res.ToString() == Screen.currentResolution.ToString()).index; // Compare all res's against current resolution, find match and return index.
+
+        PlayerPrefs.SetInt("screenResIndex", _screenResDropdown.index);
     }
 
     private void InitModeDropdown() {
@@ -61,10 +76,18 @@ public class SettingsMenuController : MonoBehaviour {
         _displayModeDropdown.index = screenModes
             .Select((mode, index) => (mode, index))
             .First(kv => kv.mode == Screen.fullScreenMode).index;
+
+        PlayerPrefs.SetInt("screenModeIndex", _displayModeDropdown.index);
     }
 
     private void InitGraphicsQualityDropdown() {
         _graphicsQualityDropdown.choices = QualitySettings.names.ToList();
         _graphicsQualityDropdown.index = QualitySettings.GetQualityLevel();
+
+        PlayerPrefs.SetInt("graphicsIndex", _graphicsQualityDropdown.index);
+    }
+
+    private void InitVolumeSlider() {
+        _volumeSlider.value = PlayerPrefs.GetFloat("volume");
     }
 }
