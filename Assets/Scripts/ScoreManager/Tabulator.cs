@@ -127,39 +127,14 @@ public class Tabulator : MonoBehaviour
 
                 DBManager dBManager = DBManager.GetInstance();
                 dBManager.OpenDBConnection("PixelAndy.db");
+
                 dBManager.ExecuteParamQueryNonReader(
                     @"INSERT INTO UserScore (UserID, LevelID, Score) VALUES " +
                         $@"({gameData.UserID}, {Regex.Match(SceneManager.GetActiveScene().name, "[0-9]").Value}, {overallScore});"
                 );
+
+                dBManager.CloseDBConnection();
             }
         } 
     }
-
-
-    /*
-    prototype methods used prior to UI overlay change. 
-    */
-
-
-    /*private void checkLost()
-    {
-        if (lives == 0 || elapsedTime >= allowedTime)   // lose if ran out of lives or time. 
-        {
-            UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
-        }
-    }
-
-    private void checkWin()
-    {
-        if (Win)
-        {
-            // set all scores, load win scene
-            PlayerPrefs.SetInt("TimeBonus", Convert.ToInt16(remainingTime.TotalSeconds)); 
-            PlayerPrefs.SetInt("LevelScore", LevelBaseScore); 
-            PlayerPrefs.SetInt("CollectBonus", Collect); 
-            PlayerPrefs.SetInt("LivesBonus", Lives * BonusPerLife);
-            UIManager.GetInstance().ToggleUIElement(UIType.WinLossMenu);
-        }
-    }*/
-    
 }
