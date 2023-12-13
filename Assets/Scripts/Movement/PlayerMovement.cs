@@ -45,7 +45,8 @@ public class PlayerMovement : MonoBehaviour
 
     public enum MovementState { idle, running, jumping, falling }           // Enum used to determine the correct state of the movement animation
 
-    private Vector2 playerOrigin;               // record player starting position 
+    private Vector3 playerOrigin;               // record player starting position 
+    public Vector3 RespawnPoint{get; set;}      // property for if player resets to origin or a checkpoint 
 
     /*
     *	METHOD          : Start()
@@ -64,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         collision = GetComponent<BoxCollider2D>();
-        playerOrigin = playerBody.position;             //record player's starting position 
+        RespawnPoint = playerBody.position;             //record player's starting position 
     }
 
     /*
@@ -242,7 +243,7 @@ public class PlayerMovement : MonoBehaviour
             deathEffect.Play();
             tabulator.Lives -= 1;           // update remaning lives in tabulator 
             Debug.Log("tabulator.lives: " + tabulator.Lives);
-            playerBody.position = playerOrigin;  // reset player back to starting position 
+            playerBody.position = RespawnPoint;  // reset player back to starting position or last checkpoint encountered
             DynamicGameData gameData = GameDataManager.GetInstance();
             gameData.LivesRemaining = tabulator.Lives;
         }

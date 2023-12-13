@@ -73192,7 +73192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5761970278586378669, guid: 16d2d91ad169dca4d9b5f343a79fb79a, type: 3}
       propertyPath: m_TagString
-      value: Portal
+      value: Collectable
       objectReference: {fileID: 0}
     - target: {fileID: 5761970278586378670, guid: 16d2d91ad169dca4d9b5f343a79fb79a, type: 3}
       propertyPath: m_RootOrder
@@ -79860,7 +79860,11 @@ Transform:
   - {fileID: 1625410675}
   - {fileID: 1969766207}
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 9
+=======
+  m_RootOrder: 10
+>>>>>>> e6bb18d38adad796609b41711c476ed39094a14d
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1567633466 stripped
 Transform:
