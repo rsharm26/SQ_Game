@@ -11,8 +11,6 @@ public class MusicContainer : ScriptableObject {
     [SerializeField]
     private List<MappedSong> _music;
 
-    private float _volume = 1.0f;
-
     [Serializable]
     public class MappedSong {
         public SongType songType;
@@ -25,14 +23,12 @@ public class MusicContainer : ScriptableObject {
 
         if (desiredTune.audioSource != null) {
             desiredTune.useableAudio = Instantiate(desiredTune.audioSource);
-            desiredTune.useableAudio.volume = _volume;
+            desiredTune.useableAudio.volume = PlayerPrefs.GetFloat("volume") / 100;
             desiredTune.useableAudio.Play();
         } 
     }
 
     public void AdjustVolume(float newVolume) {
-        _volume = newVolume;
-
         foreach (MappedSong tune in _music) {
             if (tune.useableAudio != null) {
                 tune.useableAudio.volume = newVolume;

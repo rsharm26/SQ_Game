@@ -9,7 +9,7 @@
             <ui:Slider picking-mode="Ignore" label="Volume" value="100" high-value="100" show-input-field="false" inverted="false" name="volume-slider" />
         </ui:VisualElement>
         <ui:VisualElement name="control-box">
-            <ui:Button text="Cancel" display-tooltip-when-elided="true" name="cancel-btn" />
+            <ui:Button text="Exit" display-tooltip-when-elided="true" name="cancel-btn" />
             <ui:Button text="Apply" display-tooltip-when-elided="true" name="apply-btn" />
         </ui:VisualElement>
     </ui:VisualElement>
