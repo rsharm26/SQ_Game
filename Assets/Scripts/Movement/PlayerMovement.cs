@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private Tabulator tabulator; 
+
     public Rigidbody2D playerBody;                                          // Gives physics to our player's character
 
     public BoxCollider2D collision;                                         // Allows for the detection of collision with the player    
@@ -168,16 +169,6 @@ public class PlayerMovement : MonoBehaviour
             jumpSoundEffect.Play();
             playerBody.velocity = new Vector2(playerBody.velocity.x, jumpForce);
             doubleJump = false;
-            //if (playerBody.velocity.y < 0)
-            //{
-            //    playerBody.velocity = new Vector2(playerBody.velocity.x, jumpForce);
-            //    doubleJump = false;
-            //}
-            //else
-            //{
-            //    playerBody.velocity = new Vector2(playerBody.velocity.x, jumpForce);
-            //    doubleJump = false;
-            //}
         }
     }
 
