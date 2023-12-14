@@ -24,6 +24,7 @@ public class PauseMenuController : MonoBehaviour {
     private Button _resumeButton;
     private Button _settingsButton;
     private Button _quitButton;
+    private Button _replayButton;
     private DynamicGameData _gameData; // Scriptable DTO.
 
     // This method is included by default in Unity, executes at the start of an object's lifetime (first frame).
@@ -35,11 +36,13 @@ public class PauseMenuController : MonoBehaviour {
         _resumeButton = root.Q<Button>("resume-btn");
         _settingsButton = root.Q<Button>("settings-btn");
         _quitButton = root.Q<Button>("quit-btn");
+        _replayButton = root.Q<Button>("replay-btn");
 
         // Bind each button click to an event.
         _resumeButton.clickable.clicked += CloseWindow;
         _settingsButton.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.Settings);
         _quitButton.clickable.clicked += ReturnToMainMenu;
+        _replayButton.clickable.clicked += ReplayLevel;
 
         // Bind another event that refreshes data on this view.
         _gameData = GameDataManager.GetInstance();
@@ -71,6 +74,12 @@ public class PauseMenuController : MonoBehaviour {
     private void ReturnToMainMenu() {
         UIManager.GetInstance().ToggleUIElement(UIType.InLevelExit);
     }
+
+    private void ReplayLevel() {
+        UIManager.GetInstance().CloseAllActiveElements();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+    }    
 
     /*
      * Method: RefreshBoundData() -- Method with no parameters.

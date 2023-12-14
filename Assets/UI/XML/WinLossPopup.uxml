@@ -33,6 +33,7 @@
                 <ui:Button text="Leaderboard" display-tooltip-when-elided="true" name="leader-btn" class="green-btn" />
                 <ui:Button text="Main Menu" display-tooltip-when-elided="true" name="menu-btn" class="red-btn" />
             </ui:GroupBox>
+            <ui:Button text="Replay" display-tooltip-when-elided="true" name="replay-btn" class="green-btn" style="position: absolute; font-size: 16px; right: 80%; bottom: 77%; width: 10%; height: 40px; -unity-text-align: middle-center;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

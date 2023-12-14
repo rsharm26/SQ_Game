@@ -3,6 +3,7 @@
     <ui:VisualElement name="container">
         <ui:VisualElement name="background" />
         <ui:VisualElement name="options-box">
+            <ui:Button text="Replay" display-tooltip-when-elided="true" name="replay-btn" class="green-btn" style="font-size: 16px; width: 10%; height: 40px; -unity-text-align: middle-center; position: absolute; bottom: 77%; right: 80%;" />
             <ui:VisualElement name="header" class="grouped-row">
                 <ui:Label text="PAUSED!" display-tooltip-when-elided="true" name="title" class="heading-text" />
                 <ui:VisualElement name="pink-dude" />

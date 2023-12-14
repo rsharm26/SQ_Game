@@ -27,6 +27,7 @@ public class WinLossMenuController : MonoBehaviour {
     private Button _levelsButton;
     private Button _leaderButton;
     private Button _menuButton;
+    private Button _replayButton;
     private DynamicGameData _gameData; // Scriptable DTO.
 
 
@@ -39,11 +40,13 @@ public class WinLossMenuController : MonoBehaviour {
         _levelsButton = root.Q<Button>("level-selector-btn");
         _leaderButton = root.Q<Button>("leader-btn");
         _menuButton = root.Q<Button>("menu-btn");
+        _replayButton = root.Q<Button>("replay-btn");
 
         // Bind simple events to each button press.
         _levelsButton.clickable.clicked += () => uiContainer.ToggleUIElement(UIType.LevelSelection);
         _leaderButton.clickable.clicked += InvokeLeaderboard;
         _menuButton.clickable.clicked += ReturnToMainMenu;
+        _replayButton.clickable.clicked += ReplayLevel;
 
         // Bind a data updating event, basically refresh our view when certain GameData fields are updated.
         _gameData = GameDataManager.GetInstance();
@@ -65,17 +68,15 @@ public class WinLossMenuController : MonoBehaviour {
         UIManager.GetInstance().ToggleUIElement(UIType.Leaderboard);
     }
 
-    /*
-     * Method: ReturnToMainMenu() -- Method with no parameters.
-     * Description: This method is called whenever the to main menu button is pressed, simply closes all UI elements and loads main menu scene.
-     * Parameters: None.
-     * Outputs: Nothing.
-     * Return Values: Nothing.
-     */
     private void ReturnToMainMenu() {
-        UIManager.GetInstance().CloseAllActiveElements();
-        SceneManager.LoadScene("MainMenu");
+        UIManager.GetInstance().ToggleUIElement(UIType.InLevelExit);
     }
+
+    private void ReplayLevel() {
+        UIManager.GetInstance().CloseAllActiveElements();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+    }        
 
     /*
      * Method: RefreshBoundData() -- Method with no parameters.

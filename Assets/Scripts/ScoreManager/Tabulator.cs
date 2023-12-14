@@ -6,6 +6,7 @@ using TMPro;    // library needed for text field
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using Mono.Data.Sqlite;
 
 
 /*
@@ -129,10 +130,14 @@ public class Tabulator : MonoBehaviour
                 DBManager dBManager = DBManager.GetInstance();
                 dBManager.OpenDBConnection("PixelAndy.db");
 
-                dBManager.ExecuteParamQueryNonReader(
-                    @"INSERT INTO UserScore (UserID, LevelID, Score) VALUES " +
-                        $@"({gameData.UserID}, {Regex.Match(SceneManager.GetActiveScene().name, "[0-9]").Value}, {overallScore});"
-                );
+                try {
+                    dBManager.ExecuteParamQueryNonReader(
+                        @"INSERT INTO UserScore (UserID, LevelID, Score) VALUES " +
+                            $@"({gameData.UserID}, {Regex.Match(SceneManager.GetActiveScene().name, "[0-9]").Value}, {overallScore});"
+                    );
+                } catch (SqliteException se) {
+                    Debug.Log(se.Message);
+                }
 
                 dBManager.CloseDBConnection();
             }
