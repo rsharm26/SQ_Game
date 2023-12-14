@@ -131,7 +131,6 @@ public class Tabulator : MonoBehaviour
                 DBManager dBManager = DBManager.GetInstance();
                 dBManager.OpenDBConnection("PixelAndy.db");
 
-<<<<<<< HEAD
                 try
                 {
                     dBManager.ExecuteParamQueryNonReader(
@@ -144,18 +143,6 @@ public class Tabulator : MonoBehaviour
                 }
 
                 dBManager.CloseDBConnection();
-
-                //dBManager.ExecuteParamQueryNonReader(
-                //    @"INSERT INTO UserScore (UserID, LevelID, Score) VALUES " +
-                //        $@"({gameData.UserID}, {Regex.Match(SceneManager.GetActiveScene().name, "[0-9]").Value}, {overallScore});"
-=======
-                dBManager.ExecuteParamQueryNonReader(
-                    @"INSERT INTO UserScore (UserID, LevelID, Score) VALUES " +
-                        $@"({gameData.UserID}, {Regex.Match(SceneManager.GetActiveScene().name, "[0-9]").Value}, {overallScore});"
-                );
-
-                dBManager.CloseDBConnection();
->>>>>>> bcb614825380b0cd2bd4d96410b9c4fb661cfea6
             }
         } 
     }

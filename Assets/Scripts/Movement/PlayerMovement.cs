@@ -219,7 +219,6 @@ public class PlayerMovement : MonoBehaviour
         playerAnimation.SetInteger("state", (int)state); 
     }
 
-
     /*
     *	METHOD          : IsGrounded()
     *	DESCRIPTION		:
@@ -240,7 +239,6 @@ public class PlayerMovement : MonoBehaviour
 
 
     /*
-<<<<<<< HEAD
     *	METHOD          : OnCollisionEnter2D(Collision2D other)
     *	DESCRIPTION		:
     *		This method is used for when the player will interact with other objects in the game. The two if statements in the method regard
@@ -250,29 +248,15 @@ public class PlayerMovement : MonoBehaviour
     *		Collision2D         :    This will be a separate object other than the player (enemy, etc.)
     *	RETURNS			:
     *		void	            :	 Void is used as this method has no return values
-=======
-    *	METHOD          : OnCollisionEnter2D() 
-    *	DESCRIPTION		:
-    *		This method contains collision-related logic.  When player encounters an enemy, their lives should decrement, and get reset to the 
-    *       nearest checkpoint that player has encountered.  If player encounters portal, level is won. 
-    *	PARAMETERS:
-    *		void               :    Collision2D other: the other object that player has collided into. 
-    *	RETURNS			:           N/A 
->>>>>>> bcb614825380b0cd2bd4d96410b9c4fb661cfea6
     */
-    private void OnCollisionEnter2D(Collision2D other) 
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        // If the player runs into an enemy, reduce their available lives 
+        // if it's into enemy, reduce available lives 
         if (other.gameObject.tag == "Enemy")
         {
             deathEffect.Play();
-<<<<<<< HEAD
-            tabulator.Lives -= 1;                // update remaning lives in tabulator 
-            Debug.Log("tabulator.lives: " + tabulator.Lives);
-=======
             tabulator.Lives -= 1;           // update remaning lives in tabulator 
-            
->>>>>>> bcb614825380b0cd2bd4d96410b9c4fb661cfea6
+
             playerBody.position = RespawnPoint;  // reset player back to starting position or last checkpoint encountered
 
             DynamicGameData gameData = GameDataManager.GetInstance();   // updating gameData DTO.
@@ -280,15 +264,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        // If the player has reached the portal, they will win the specific level
+        // if arrived at portal, win. 
         if (other.gameObject.tag == "Portal")
         {
             winEffect.Play();
-            tabulator.Win = true; 
+            tabulator.Win = true;
         }
     }
 
-<<<<<<< HEAD
     /*
     *	METHOD          : OnTriggerEnter2D(Collider2D other)
     *	DESCRIPTION		:
@@ -300,25 +283,13 @@ public class PlayerMovement : MonoBehaviour
     *		Collider2D other    :   This is an object separate from the player 
     *	RETURNS			:
     *		void	            :	Void is used as this method has no return values
-=======
-
-    /*
-    *	METHOD          : OnTriggerEnter2D() 
-    *	DESCRIPTION		:
-    *		This method is used for collectable detection.  When player runs into a gameobject that does not have a rigid body and set as trigger 
-    *       this method will be called.  When a collectable is encountered, tabulator's collect score will increment, and the collectable will be 
-    *       deactivated as it is consumed. 
-    *	PARAMETERS:
-    *		void               :    Collider2D other: the collectable player has encountered. 
-    *	RETURNS			:           N/A 
->>>>>>> bcb614825380b0cd2bd4d96410b9c4fb661cfea6
     */
     private void OnTriggerEnter2D(Collider2D other)
     {
         // If the object is a collectable, update the tabulator and play the appropriate sound
         if (other.gameObject.tag == "Collectable")
         {
-            itemCollectEffect.Play();   // play collect sound. 
+            itemCollectEffect.Play();
             tabulator.Collect++; 
             other.gameObject.SetActive(false);  // deactivate the collectable 
             DynamicGameData gameData = GameDataManager.GetInstance();
