@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 /* Filename: MainMenuSetup.cs
  * Project: SQ Term Project PixelAndysAdventure
  * By: Rohin Sharma
@@ -8,9 +6,13 @@ using System.Collections.Generic;
                 Note this is different from every other UI element as it builds itself completely from code.
                 Did this as a test and because main menu is static.
  */
+using System.Collections;
+using System.Collections.Generic;
 using Mono.Data.Sqlite;
 using UnityEngine;
 using UnityEngine.UIElements;
+
+
 
 /*
  * Class: MainMenuSetup.
